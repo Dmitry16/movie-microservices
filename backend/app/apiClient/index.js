@@ -1,51 +1,29 @@
-//making connection string
-const apiBase = 'https://api.github.com'
-const conStrBase = `/repos/${repo}`
-const conStrParamsArr = makeConStringWithDate(period, date)
-
-// console.dir(config.GITHUB_PERSONAL_ACCESS_TOKEN)
+const axios = require('axios');
+const config = require('../config');
+//making connection params
+const apiBase = 'http://www.omdbapi.com/';
+const apiKey = config.OMDb_PERSONAL_ACCESS_TOKEN;
+const keyword = 'universe';
+const pageNum = 10;
+const input = `?apikey=${apiKey}&s=${keyword}&page=${pageNum}`;
 
 const conParams = {
-  responseType: 'stream',
+  responseType: 'json',
   baseURL: apiBase,
-  headers: {
-    Authorization: `token ${config.GITHUB_PERSONAL_ACCESS_TOKEN}`,
-  },
-}
+};
 
-let chunksLength = 0
-let statsObj = {}
-let resourceCounter = 0
+let data = [];
 
-async function fetchData(conStrParam) {
-  //instantiating stream for filtering and writing data
-  const createProcessingStream = require('./streamModifier')
-
-  const input =
-    conStrParam !== '/rate_limit' ? conStrBase + conStrParam : conStrParam
-
-  await axios
+function fetchData() {
+  return axios
     .get(input, conParams)
     .then(response => {
-      resourceCounter++
-      let contLength = response.headers['content-length']
-      let processingStream = createProcessingStream(
-        contLength,
-        resourceCounter,
-        chunksLength,
-        statsObj,
-        period,
-      )
-      response.data
-        .pipe(parser())
-        .pipe(resourceCounter !== 5 ? streamArray() : streamValues())
-        .pipe(processingStream)
+      // response.data
+      return Promise.resolve(response.data)
+      // console.log(typeof response.data)
     })
-    .catch(errorHandler)
-}
+    // .then()
+    .catch(console.error)
+};
 
-async function init() {
-  for (const conStrParam of conStrParamsArr) {
-    await fetchData(conStrParam)
-  }
-}
+module.exports = fetchData
