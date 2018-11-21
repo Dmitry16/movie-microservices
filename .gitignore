@@ -1,2 +1,27 @@
-backend/app/node_modules
-frontend/app/node_modules
+# Don't check auto-generated stuff into git
+backend/node_modules
+backend/coverage
+backend/build
+backend/stats.json
+
+# Cruft
+backend/.DS_Store
+backend/npm-debug.log
+backend/.idea
+
+# Logs
+backend/yarn-error.log
+
+# Don't check auto-generated stuff into git
+frontend/node_modules
+frontend/coverage
+frontend/build
+frontend/stats.json
+
+# Cruft
+frontend/.DS_Store
+frontend/npm-debug.log
+frontend/.idea
+
+# Logs
+frontend/yarn-error.log
