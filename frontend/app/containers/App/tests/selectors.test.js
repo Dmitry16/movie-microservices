@@ -2,10 +2,10 @@ import { fromJS } from 'immutable';
 
 import {
   selectGlobal,
-  makeSelectCurrentUser,
+  makeSelectCurrentMovie,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRepos,
+  makeSelectMovies,
   makeSelectLocation,
 } from '../selectors';
 
@@ -19,16 +19,16 @@ describe('selectGlobal', () => {
   });
 });
 
-describe('makeSelectCurrentUser', () => {
-  const currentUserSelector = makeSelectCurrentUser();
+describe('makeSelectCurrentMovie', () => {
+  const currentMovieSelector = makeSelectCurrentMovie();
   it('should select the current user', () => {
-    const username = 'flexdinesh';
+    const movieTitle = 'Star Wars';
     const mockedState = fromJS({
       global: {
-        currentUser: username,
+        currentMovieTitle: movieTitle,
       },
     });
-    expect(currentUserSelector(mockedState)).toEqual(username);
+    expect(currentMovieSelector(mockedState)).toEqual(movieTitle);
   });
 });
 
@@ -58,18 +58,18 @@ describe('makeSelectError', () => {
   });
 });
 
-describe('makeSelectRepos', () => {
-  const reposSelector = makeSelectRepos();
+describe('makeSelectMovies', () => {
+  const moviesSelector = makeSelectMovies();
   it('should select the repos', () => {
-    const repositories = fromJS([]);
+    const movies = fromJS([]);
     const mockedState = fromJS({
       global: {
-        userData: {
-          repositories,
+        movieData: {
+          movies,
         },
       },
     });
-    expect(reposSelector(mockedState)).toEqual(repositories);
+    expect(moviesSelector(mockedState)).toEqual(movies);
   });
 });
 

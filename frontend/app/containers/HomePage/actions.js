@@ -24,7 +24,7 @@ import { CHANGE_MOVIE_TITLE } from './constants';
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function changeUsername(name) {
+export function changeMovieTitle(name) {
   return {
     type: CHANGE_MOVIE_TITLE,
     name

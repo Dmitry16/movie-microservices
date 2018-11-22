@@ -1,51 +1,51 @@
 import {
-  LOAD_REPOS,
-  LOAD_REPOS_SUCCESS,
-  LOAD_REPOS_ERROR,
+  LOAD_MOVIES,
+  LOAD_MOVIES_SUCCESS,
+  LOAD_MOVIES_ERROR,
 } from '../constants';
 
 import {
-  loadRepos,
-  reposLoaded,
-  repoLoadingError,
+  loadMovies,
+  moviesLoaded,
+  movieLoadingError,
 } from '../actions';
 
 describe('App Actions', () => {
-  describe('loadRepos', () => {
+  describe('loadMovies', () => {
     it('should return the correct type', () => {
       const expectedResult = {
-        type: LOAD_REPOS,
+        type: LOAD_MOVIES,
       };
 
-      expect(loadRepos()).toEqual(expectedResult);
+      expect(loadMovies()).toEqual(expectedResult);
     });
   });
 
-  describe('reposLoaded', () => {
+  describe('moviesLoaded', () => {
     it('should return the correct type and the passed repos', () => {
       const fixture = ['Test'];
-      const username = 'test';
+      const movieTitle = 'test';
       const expectedResult = {
-        type: LOAD_REPOS_SUCCESS,
+        type: LOAD_MOVIES_SUCCESS,
         repos: fixture,
-        username,
+        movieTitle,
       };
 
-      expect(reposLoaded(fixture, username)).toEqual(expectedResult);
+      expect(moviesLoaded(fixture, username)).toEqual(expectedResult);
     });
   });
 
-  describe('repoLoadingError', () => {
+  describe('movieLoadingError', () => {
     it('should return the correct type and the error', () => {
       const fixture = {
         msg: 'Something went wrong!',
       };
       const expectedResult = {
-        type: LOAD_REPOS_ERROR,
+        type: LOAD_MOVIES_ERROR,
         error: fixture,
       };
 
-      expect(repoLoadingError(fixture)).toEqual(expectedResult);
+      expect(movieLoadingError(fixture)).toEqual(expectedResult);
     });
   });
 });

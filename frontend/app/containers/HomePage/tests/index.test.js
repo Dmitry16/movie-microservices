@@ -5,11 +5,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import ReposList from 'components/ReposList';
+import MoviesList from 'components/MoviesList';
 import HomePage from '../HomePage';
 import { mapDispatchToProps } from '../index';
-import { changeUsername } from '../actions';
-import { loadRepos } from '../../App/actions';
+import { changeMovieTitle } from '../actions';
+import { loadMovies } from '../../App/actions';
 
 describe('<HomePage />', () => {
   it('should render the repos list', () => {
@@ -17,7 +17,7 @@ describe('<HomePage />', () => {
       <HomePage loading error={false} repos={[]} />
     );
     expect(
-      renderedComponent.contains(<ReposList loading error={false} repos={[]} />)
+      renderedComponent.contains(<MoviesList loading error={false} repos={[]} />)
     ).toEqual(true);
   });
 
@@ -26,7 +26,7 @@ describe('<HomePage />', () => {
     mount(
       <HomePage
         username="Not Empty"
-        onChangeUsername={() => {}}
+        onChangeMovieTitle={() => {}}
         onSubmitForm={submitSpy}
       />
     );
@@ -35,7 +35,7 @@ describe('<HomePage />', () => {
 
   it('should not call onSubmitForm if username is an empty string', () => {
     const submitSpy = jest.fn();
-    mount(<HomePage onChangeUsername={() => {}} onSubmitForm={submitSpy} />);
+    mount(<HomePage onChangeMovieTitle={() => {}} onSubmitForm={submitSpy} />);
     expect(submitSpy).not.toHaveBeenCalled();
   });
 
@@ -44,7 +44,7 @@ describe('<HomePage />', () => {
     mount(
       <HomePage
         username=""
-        onChangeUsername={() => {}}
+        onChangeMovieTitle={() => {}}
         onSubmitForm={submitSpy}
       />
     );
@@ -52,19 +52,19 @@ describe('<HomePage />', () => {
   });
 
   describe('mapDispatchToProps', () => {
-    describe('onChangeUsername', () => {
+    describe('onChangeMovieTitle', () => {
       it('should be injected', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
-        expect(result.onChangeUsername).toBeDefined();
+        expect(result.onChangeMovieTitle).toBeDefined();
       });
 
-      it('should dispatch changeUsername when called', () => {
+      it('should dispatch changeMovieTitle when called', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
         const username = 'flexdinesh';
-        result.onChangeUsername({ target: { value: username } });
-        expect(dispatch).toHaveBeenCalledWith(changeUsername(username));
+        result.onChangeMovieTitle({ target: { value: username } });
+        expect(dispatch).toHaveBeenCalledWith(changeMovieTitle(username));
       });
     });
 
@@ -75,11 +75,11 @@ describe('<HomePage />', () => {
         expect(result.onSubmitForm).toBeDefined();
       });
 
-      it('should dispatch loadRepos when called', () => {
+      it('should dispatch loadMovies when called', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
         result.onSubmitForm();
-        expect(dispatch).toHaveBeenCalledWith(loadRepos());
+        expect(dispatch).toHaveBeenCalledWith(loadMovies());
       });
 
       it('should preventDefault if called with event', () => {

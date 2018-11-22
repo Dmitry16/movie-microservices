@@ -2,9 +2,9 @@ import { fromJS } from 'immutable';
 
 import appReducer from '../reducer';
 import {
-  loadRepos,
-  reposLoaded,
-  repoLoadingError,
+  loadMovies,
+  moviesLoaded,
+  movieLoadingError,
 } from '../actions';
 
 describe('appReducer', () => {
@@ -13,9 +13,9 @@ describe('appReducer', () => {
     state = fromJS({
       loading: false,
       error: false,
-      currentUser: false,
-      userData: fromJS({
-        repositories: false,
+      currentMovieTitle: false,
+      movieData: fromJS({
+        movies: false,
       }),
     });
   });
@@ -25,29 +25,29 @@ describe('appReducer', () => {
     expect(appReducer(undefined, {})).toEqual(expectedResult);
   });
 
-  it('should handle the loadRepos action correctly', () => {
+  it('should handle the loadMovies action correctly', () => {
     const expectedResult = state
       .set('loading', true)
       .set('error', false)
-      .setIn(['userData', 'repositories'], false);
+      .setIn(['movieData', 'movies'], false);
 
-    expect(appReducer(state, loadRepos())).toEqual(expectedResult);
+    expect(appReducer(state, loadMovies())).toEqual(expectedResult);
   });
 
-  it('should handle the reposLoaded action correctly', () => {
+  it('should handle the moviesLoaded action correctly', () => {
     const fixture = [{
-      name: 'My Repo',
+      title: 'test',
     }];
-    const username = 'test';
+    const movieTitle = 'test';
     const expectedResult = state
-      .setIn(['userData', 'repositories'], fixture)
+      .setIn(['movieData', 'movies'], fixture)
       .set('loading', false)
-      .set('currentUser', username);
+      .set('currentMovieTitle', movieTitle);
 
-    expect(appReducer(state, reposLoaded(fixture, username))).toEqual(expectedResult);
+    expect(appReducer(state, moviesLoaded(fixture, movieTitle))).toEqual(expectedResult);
   });
 
-  it('should handle the repoLoadingError action correctly', () => {
+  it('should handle the movieLoadingError action correctly', () => {
     const fixture = {
       msg: 'Not found',
     };
@@ -55,6 +55,6 @@ describe('appReducer', () => {
       .set('error', fixture)
       .set('loading', false);
 
-    expect(appReducer(state, repoLoadingError(fixture))).toEqual(expectedResult);
+    expect(appReducer(state, movieLoadingError(fixture))).toEqual(expectedResult);
   });
 });

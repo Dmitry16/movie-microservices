@@ -49,9 +49,9 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 <input
                   id="currentMovieTitle"
                   type="text"
-                  placeholder="flexdinesh"
+                  placeholder="kuku"
                   value={this.props.currentMovieTitle}
-                  onChange={this.props.onChangeUsername}
+                  onChange={this.props.onChangeMovieTitle}
                 />
               </label>
             </form>
@@ -75,5 +75,5 @@ HomePage.propTypes = {
   ]),
   onSubmitForm: PropTypes.func,
   currentMovieTitle: PropTypes.string,
-  onChangeUsername: PropTypes.func,
+  onChangeMovieTitle: PropTypes.func,
 };

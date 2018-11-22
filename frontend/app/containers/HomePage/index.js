@@ -9,14 +9,14 @@ import {
   makeSelectError
 } from 'containers/App/selectors';
 import { loadMovies } from '../App/actions';
-import { changeUsername } from './actions';
+import { changeMovieTitle } from './actions';
 import { makeSelectMovieTitle } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import HomePage from './HomePage';
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
+  onChangeMovieTitle: (evt) => dispatch(changeMovieTitle(evt.target.value)),
   onSubmitForm: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     dispatch(loadMovies());

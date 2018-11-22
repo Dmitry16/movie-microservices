@@ -1,17 +1,17 @@
-import { CHANGE_USERNAME } from '../constants';
+import { CHANGE_MOVIE_TITLE } from '../constants';
 
-import { changeUsername } from '../actions';
+import { changeMovieTitle } from '../actions';
 
 describe('Home Actions', () => {
-  describe('changeUsername', () => {
+  describe('changeMovieTitle', () => {
     it('should return the correct type and the passed name', () => {
       const fixture = 'Max';
       const expectedResult = {
-        type: CHANGE_USERNAME,
+        type: CHANGE_MOVIE_TITLE,
         name: fixture
       };
 
-      expect(changeUsername(fixture)).toEqual(expectedResult);
+      expect(changeMovieTitle(fixture)).toEqual(expectedResult);
     });
   });
 });
