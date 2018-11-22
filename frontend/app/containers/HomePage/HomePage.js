@@ -29,6 +29,8 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       movies,
     };
 
+    console.log('HomePage movies::', movies)
+
     return (
       <article>
         <Helmet>

@@ -26,15 +26,15 @@ const App = () => (
     >
       <meta name="description" content="A React.js Boilerplate application" />
     </Helmet>
-    <Header />
-    <ErrorBoundary>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-          <Route path="/about" component={FeaturePage} />
-        <Route path="" component={NotFoundPage} />
-      </Switch>
-    </ErrorBoundary>
-    <Footer />
+      <Header />
+      <ErrorBoundary>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+            <Route path="/about" component={FeaturePage} />
+          <Route path="" component={NotFoundPage} />
+        </Switch>
+      </ErrorBoundary>
+      <Footer />
   </div>
 );
 
