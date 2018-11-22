@@ -22,9 +22,9 @@ import {
 const initialState = fromJS({
   loading: false,
   error: false,
-  currentUser: false,
-  userData: {
-    repositories: false,
+  currentMovieTitle: false,
+  movieData: {
+    movies: false,
   },
 });
 
@@ -34,12 +34,12 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false)
-        .setIn(['userData', 'repositories'], false);
+        .setIn(['movieData', 'movies'], false);
     case LOAD_MOVIES_SUCCESS:
       return state
-        .setIn(['userData', 'repositories'], action.movies)
+        .setIn(['movieData', 'movies'], action.movies)
         .set('loading', false)
-        .set('currentUser', action.username);
+        .set('currentMovieTitle', action.currentMovieTitle);
     case LOAD_MOVIES_ERROR:
       return state
         .set('error', action.error)

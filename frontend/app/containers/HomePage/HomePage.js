@@ -13,10 +13,10 @@ import './style.scss';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
-   * when initial state username is not null, submit the form to load movies
+   * when initial state currentMovieTitle is not null, submit the form to load movies
    */
   componentDidMount() {
-    if (this.props.username && this.props.username.trim().length > 0) {
+    if (this.props.currentMovieTitle && this.props.currentMovieTitle.trim().length > 0) {
       this.props.onSubmitForm();
     }
   }
@@ -43,14 +43,14 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
           </section>
           <section>
             <form onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">
+              <label htmlFor="currentMovieTitle">
               Type in a movie title here
                 <span className="at-prefix">=></span>
                 <input
-                  id="username"
+                  id="currentMovieTitle"
                   type="text"
                   placeholder="flexdinesh"
-                  value={this.props.username}
+                  value={this.props.currentMovieTitle}
                   onChange={this.props.onChangeUsername}
                 />
               </label>
@@ -74,6 +74,6 @@ HomePage.propTypes = {
     PropTypes.bool,
   ]),
   onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
+  currentMovieTitle: PropTypes.string,
   onChangeUsername: PropTypes.func,
 };

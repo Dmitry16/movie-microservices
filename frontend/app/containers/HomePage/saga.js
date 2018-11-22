@@ -7,20 +7,20 @@ import { LOAD_MOVIES } from 'containers/App/constants';
 import { moviesLoaded, movieLoadingError } from 'containers/App/actions';
 
 import request from 'utils/request';
-import { makeSelectUsername } from 'containers/HomePage/selectors';
+import { makeSelectMovieTitle } from 'containers/HomePage/selectors';
 
 /**
  * Github repos request/response handler
  */
 export function* getMovies() {
   // Select username from store
-  const username = yield select(makeSelectUsername());
+  const username = yield select(makeSelectMovieTitle());
   const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
 
   try {
     // Call the request helper (see 'utils/request')
     const movies = yield call(request, requestURL);
-    yield put(moviesLoaded(movies, username));
+    yield put(moviesLoaded(movies, currentMovieTitle));
   } catch (err) {
     yield put(movieLoadingError(err));
   }

@@ -8,9 +8,9 @@ const selectGlobal = (state) => state.get('global');
 
 const selectRoute = (state) => state.get('route');
 
-const makeSelectCurrentUser = () => createSelector(
+const makeSelectCurrentMovie = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('currentUser')
+  (globalState) => globalState.get('currentMovieTitle')
 );
 
 const makeSelectLoading = () => createSelector(
@@ -23,9 +23,9 @@ const makeSelectError = () => createSelector(
   (globalState) => globalState.get('error')
 );
 
-const makeSelectRepos = () => createSelector(
+const makeSelectMovies = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.getIn(['userData', 'repositories'])
+  (globalState) => globalState.getIn(['movieData', 'movies'])
 );
 
 const makeSelectLocation = () => createSelector(
@@ -35,9 +35,9 @@ const makeSelectLocation = () => createSelector(
 
 export {
   selectGlobal,
-  makeSelectCurrentUser,
+  makeSelectCurrentMovie,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRepos,
+  makeSelectMovies,
   makeSelectLocation,
 };

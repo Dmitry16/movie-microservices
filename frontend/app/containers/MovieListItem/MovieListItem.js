@@ -17,7 +17,7 @@ export default class MovieListItem extends React.PureComponent { // eslint-disab
 
     // If the repository is owned by a different person than we got the data for
     // it's a fork and we should show the name of the owner
-    if (movie.owner.login !== this.props.currentUser) {
+    if (movie.owner.login !== this.props.currentMovieTitle) {
       nameprefix = `${movie.owner.login}/`;
     }
 
@@ -43,5 +43,5 @@ export default class MovieListItem extends React.PureComponent { // eslint-disab
 
 MovieListItem.propTypes = {
   movie: PropTypes.object,
-  currentUser: PropTypes.string,
+  currentMovieTitle: PropTypes.string,
 };
