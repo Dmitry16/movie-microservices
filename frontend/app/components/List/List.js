@@ -6,10 +6,10 @@ const List = (props) => {
   const ComponentToRender = props.component;
   let content = (<div></div>);
 
-  // If we have items, render them
-  if (props.items) {
-    content = props.items.map((item) => (
-      <ComponentToRender key={`item-${item.id}`} item={item} />
+  // If we have movies, render them
+  if (props.movies) {
+    content = props.movies.map((movie) => (
+      <ComponentToRender key={`movie-${movie.id}`} movie={movie} />
     ));
   } else {
     // Otherwise render a single component
@@ -27,7 +27,7 @@ const List = (props) => {
 
 List.propTypes = {
   component: PropTypes.func.isRequired,
-  items: PropTypes.array,
+  movies: PropTypes.array,
 };
 
 export default List;

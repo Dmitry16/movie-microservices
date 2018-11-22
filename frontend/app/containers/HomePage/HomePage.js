@@ -7,12 +7,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import ReposList from 'components/ReposList';
+import MovieList from 'components/MovieList';
+
 import './style.scss';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
-   * when initial state username is not null, submit the form to load repos
+   * when initial state username is not null, submit the form to load movies
    */
   componentDidMount() {
     if (this.props.username && this.props.username.trim().length > 0) {
@@ -21,11 +22,11 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
   }
 
   render() {
-    const { loading, error, repos } = this.props;
-    const reposListProps = {
+    const { loading, error, movies } = this.props;
+    const moviesListProps = {
       loading,
       error,
-      repos,
+      movies,
     };
 
     return (
@@ -36,15 +37,13 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         </Helmet>
         <div className="home-page">
           <section className="centered">
-            <h2>Start your next react project in seconds</h2>
-            <p>A minimal <i>React-Redux</i> boilerplate with all the best practices</p>
+            <h2>Movie Search Box</h2>
           </section>
           <section>
-            <h2>Try me!</h2>
             <form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="username">
-              Show Github repositories by
-                <span className="at-prefix">@</span>
+              Type in a movie title here
+                <span className="at-prefix">=></span>
                 <input
                   id="username"
                   type="text"
@@ -54,7 +53,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 />
               </label>
             </form>
-            <ReposList {...reposListProps} />
+            <MovieList {...moviesListProps} />
           </section>
         </div>
       </article>
@@ -68,7 +67,7 @@ HomePage.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
-  repos: PropTypes.oneOfType([
+  movies: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.bool,
   ]),

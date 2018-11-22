@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import List from 'components/List';
 import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
-import RepoListItem from 'containers/RepoListItem';
+import MovieListItem from 'containers/MovieListItem';
 
-const ReposList = ({ loading, error, repos }) => {
+const MovieList = ({ loading, error, movies }) => {
   if (loading) {
     return <List component={LoadingIndicator} />;
   }
@@ -18,17 +18,17 @@ const ReposList = ({ loading, error, repos }) => {
     return <List component={ErrorComponent} />;
   }
 
-  if (repos !== false) {
-    return <List items={repos} component={RepoListItem} />;
+  if (movies !== false) {
+    return <List movies={movies} component={MovieListItem} />;
   }
 
   return null;
 };
 
-ReposList.propTypes = {
+MovieList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
-  repos: PropTypes.any
+  movies: PropTypes.any
 };
 
-export default ReposList;
+export default MovieList;
