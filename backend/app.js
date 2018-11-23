@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 
+console.log('ACCESS_TOKEN::',
+  process.env.OMDb_PERSONAL_ACCESS_TOKEN)
+
 var indexRouter = require('./routes/index');
 var apiSearchRouter = require('./routes/apiSearch');
 

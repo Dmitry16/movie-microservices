@@ -14,7 +14,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import ErrorBoundary from 'containers/ErrorBoundary';
 import NotFoundPage from 'containers/ErrorBoundary/NotFoundPage/Loadable';
-import Header from 'components/Header';
+// import Header from 'components/Header';
 import Footer from 'components/Footer';
 import './style.scss';
 
@@ -26,7 +26,6 @@ const App = () => (
     >
       <meta name="description" content="A React.js Boilerplate application" />
     </Helmet>
-      <Header />
       <ErrorBoundary>
         <Switch>
           <Route exact path="/" component={HomePage} />
