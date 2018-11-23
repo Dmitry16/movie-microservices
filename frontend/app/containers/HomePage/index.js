@@ -16,7 +16,9 @@ import saga from './saga';
 import HomePage from './HomePage';
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeMovieTitle: (evt) => dispatch(changeMovieTitle(evt.target.value)),
+  onChangeMovieTitle: (evt) => {
+    dispatch(changeMovieTitle(evt.target.value))
+  },
   onSubmitForm: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     dispatch(loadMovies());

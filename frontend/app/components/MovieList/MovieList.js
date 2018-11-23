@@ -18,8 +18,10 @@ const MovieList = ({ loading, error, movies }) => {
     return <List component={ErrorComponent} />;
   }
 
-  if (movies !== false) {
+  if (movies) {
     return <List movies={movies} component={MovieListItem} />;
+  } else {
+    return <h3>There is no movies with such a name :(</h3>
   }
 
   return null;

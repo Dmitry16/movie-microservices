@@ -16,9 +16,14 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
    * when initial state currentMovieTitle is not null, submit the form to load movies
    */
   componentDidMount() {
-    if (this.props.currentMovieTitle && this.props.currentMovieTitle.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
+    this.props.onSubmitForm();
+    // if (this.props.currentMovieTitle && this.props.currentMovieTitle.trim().length > 0) {
+    // }
+  }
+
+  handleInputChange(e) {
+    this.props.onChangeMovieTitle(e);
+    this.props.onSubmitForm(e);
   }
 
   render() {
@@ -51,7 +56,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                   type="text"
                   placeholder="kuku"
                   value={this.props.currentMovieTitle}
-                  onChange={this.props.onChangeMovieTitle}
+                  onChange={this.handleInputChange.bind(this)}
                 />
               </label>
             </form>

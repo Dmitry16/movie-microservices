@@ -19,14 +19,14 @@ export default class MovieListItem extends React.PureComponent { // eslint-disab
 
     // If the repository is owned by a different person than we got the data for
     // it's a fork and we should show the name of the owner
-    if (movie.Title !== this.props.currentMovieTitle) {
+    if (movie && movie.Title !== this.props.currentMovieTitle) {
       titleprefix = `${movie.Title}/`;
     }
 
     // Put together the data of the movie
     const content = (
       <div className="movie-list-item">
-      { movie.Poster !== 'N/A' 
+      { movie && movie.Poster !== 'N/A' 
         ? (
           <a className="movie-list-item__img-link" href={movie.Poster} target="_blank" rel="noopener noreferrer">
             <img src={movie.Poster} />
@@ -35,8 +35,8 @@ export default class MovieListItem extends React.PureComponent { // eslint-disab
         : ( <p className="movie-list-item__poster-n-a">Poster not available<br /><span>:(</span></p>)
       }
         <div className="movie-list-item__title">
-          {movie.Title} <br />
-          {movie.Year}
+          {movie && movie.Title} <br />
+          {movie && movie.Year}
         </div>
         {/* <a className="movie-list-item__issue-link" href={`${movie.Poster}/issues`} target="_blank" rel="noopener noreferrer">
           <IssueIcon className="movie-list-item__issue-icon" />
@@ -47,7 +47,7 @@ export default class MovieListItem extends React.PureComponent { // eslint-disab
 
     // Render the content into a list movie
     return (
-      <ListItem key={`movie-list-item-${movie.imdbID}`} item={content} />
+      <ListItem key={`movie-list-item-${movie && movie.imdbID}`} item={content} />
     );
   }
 }

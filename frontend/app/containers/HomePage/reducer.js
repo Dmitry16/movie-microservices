@@ -15,14 +15,13 @@ import { CHANGE_MOVIE_TITLE } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  currentMovieTitle: ''
+  currentMovieTitle: 'zombie'
 });
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_MOVIE_TITLE:
-      // Delete prefixed '@' from the github currentMovieTitle
-      return state.set('currentMovieTitle', action.name.replace(/@/gi, ''));
+      return state.set('currentMovieTitle', action.name);
     default:
       return state;
   }
