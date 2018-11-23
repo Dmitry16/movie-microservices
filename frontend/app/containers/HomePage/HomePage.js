@@ -12,6 +12,12 @@ import MovieList from 'components/MovieList';
 import './style.scss';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor() {
+    super();
+    this.timeoutId;
+    this.debounce = false;
+    this.keyPressCounter = 0;
+  }
   /**
    * when initial state currentMovieTitle is not null, submit the form to load movies
    */
@@ -20,10 +26,24 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     // if (this.props.currentMovieTitle && this.props.currentMovieTitle.trim().length > 0) {
     // }
   }
-
   handleInputChange(e) {
+    this.keyPressCounter++;
     this.props.onChangeMovieTitle(e);
-    this.props.onSubmitForm(e);
+    if (!this.debounce && this.keyPressCounter >= 3) {
+      this.debounce = true;
+      this.timeoutId = setTimeout(() => {
+        this.props.onSubmitForm(e);
+        this.debounce = false;
+      }, 300);
+    } 
+    else if (this.timeoutId &&  this.keyPressCounter >= 3) {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = setTimeout(() => {
+        this.props.onSubmitForm(e);
+        this.debounce = false;
+      }, 300);
+      this.debounce = true;
+    }
   }
 
   render() {
