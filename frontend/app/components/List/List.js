@@ -9,7 +9,7 @@ const List = (props) => {
   // If we have movies, render them
   if (props.movies) {
     content = props.movies.map((movie) => (
-      <ComponentToRender key={`movie-${movie.id}`} movie={movie} />
+      <ComponentToRender key={`movie-${movie.imdbID}`} movie={movie} />
     ));
   } else {
     // Otherwise render a single component
@@ -18,9 +18,7 @@ const List = (props) => {
 
   return (
     <div className="list-wrapper">
-      <ul>
-        {content}
-      </ul>
+      {content}
     </div>
   );
 };

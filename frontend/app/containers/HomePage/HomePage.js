@@ -41,11 +41,11 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
           <section className="centered">
             <h2>Movie Search Box</h2>
           </section>
-          <section>
+          <section className="centered">
             <form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="currentMovieTitle">
-              Type in a movie title here
-                <span className="at-prefix">=></span>
+              Type in a movie title here:
+                <br />
                 <input
                   id="currentMovieTitle"
                   type="text"

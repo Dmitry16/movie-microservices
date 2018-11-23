@@ -14,13 +14,13 @@ import { makeSelectMovieTitle } from 'containers/HomePage/selectors';
  */
 export function* getMovies() {
   // Select username from store
-  const username = yield select(makeSelectMovieTitle());
-  const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
+  const movieTitle = yield select(makeSelectMovieTitle());
+  const requestURL = `http://localhost:3003/api/search?keyword=${movieTitle}`;
 
   try {
     // Call the request helper (see 'utils/request')
     const movies = yield call(request, requestURL);
-    yield put(moviesLoaded(movies, currentMovieTitle));
+    yield put(moviesLoaded(movies.Search, currentMovieTitle));
   } catch (err) {
     yield put(movieLoadingError(err));
   }

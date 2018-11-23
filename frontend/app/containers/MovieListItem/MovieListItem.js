@@ -1,7 +1,7 @@
 /**
- * RepoListItem
+ * MovieListItem
  *
- * Lists the name and the issue count of a repository
+ * Lists the title and the year of a movie
  */
 
 import React from 'react';
@@ -13,30 +13,41 @@ import './style.scss';
 export default class MovieListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { movie } = this.props;
-    let nameprefix = '';
+    let titleprefix = '';
+
+    console.log('MovieListItem movie prop::', movie)
 
     // If the repository is owned by a different person than we got the data for
     // it's a fork and we should show the name of the owner
-    if (movie.owner.login !== this.props.currentMovieTitle) {
-      nameprefix = `${movie.owner.login}/`;
+    if (movie.Title !== this.props.currentMovieTitle) {
+      titleprefix = `${movie.Title}/`;
     }
 
-    // Put together the content of the repository
+    // Put together the data of the movie
     const content = (
       <div className="movie-list-item">
-        <a className="movie-list-item__movie-link" href={movie.html_url} target="_blank" rel="noopener noreferrer">
-          {nameprefix + movie.name}
-        </a>
-        <a className="movie-list-item__issue-link" href={`${movie.html_url}/issues`} target="_blank" rel="noopener noreferrer">
+      { movie.Poster !== 'N/A' 
+        ? (
+          <a className="movie-list-item__img-link" href={movie.Poster} target="_blank" rel="noopener noreferrer">
+            <img src={movie.Poster} />
+          </a> 
+          )
+        : ( <p className="movie-list-item__poster-n-a">Poster not available<br /><span>:(</span></p>)
+      }
+        <div className="movie-list-item__title">
+          {movie.Title} <br />
+          {movie.Year}
+        </div>
+        {/* <a className="movie-list-item__issue-link" href={`${movie.Poster}/issues`} target="_blank" rel="noopener noreferrer">
           <IssueIcon className="movie-list-item__issue-icon" />
-          {movie.open_issues_count}
-        </a>
+          {movie.Year}
+        </a> */}
       </div>
     );
 
     // Render the content into a list movie
     return (
-      <ListItem key={`movie-list-item-${movie.full_name}`} item={content} />
+      <ListItem key={`movie-list-item-${movie.imdbID}`} item={content} />
     );
   }
 }

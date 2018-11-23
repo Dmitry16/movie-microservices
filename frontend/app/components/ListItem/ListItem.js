@@ -4,7 +4,7 @@ import './style.scss';
 
 const ListItem = (props) => (
   <div className="list-item-wrapper">
-    <li className="list-item">{props.item}</li>
+    <div className="list-item">{props.item}</div>
   </div>
 );
 
