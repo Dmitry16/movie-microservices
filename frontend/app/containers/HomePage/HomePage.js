@@ -36,7 +36,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         this.debounce = false;
       }, 300);
     } 
-    else if (this.timeoutId &&  this.keyPressCounter >= 3) {
+    else if (this.timeoutId && this.keyPressCounter >= 3) {
       clearTimeout(this.timeoutId);
       this.timeoutId = setTimeout(() => {
         this.props.onSubmitForm(e);

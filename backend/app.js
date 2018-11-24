@@ -5,9 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 
-console.log('ACCESS_TOKEN::',
-  process.env.OMDb_PERSONAL_ACCESS_TOKEN)
-
 var indexRouter = require('./routes/index');
 var apiSearchRouter = require('./routes/apiSearch');
 
@@ -20,7 +17,6 @@ app.set('view engine', 'hbs');
 app.use(cors());
 const allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.set('Content-Type', 'application/json; charset=utf-8');
   next();
@@ -30,7 +26,7 @@ app.use(allowCrossDomain);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/search', apiSearchRouter);
