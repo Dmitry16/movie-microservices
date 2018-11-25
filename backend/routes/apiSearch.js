@@ -1,7 +1,9 @@
-var express = require('express');
+const express = require('express');
 const axios = require('axios');
-var router = express.Router();
+const router = express.Router();
 const fetchData = require('../apiClient');
+const NodeCache = require( "node-cache" );
+const cache = new NodeCache({});
 
 /* 
 * GET search query from the frontend client
@@ -11,21 +13,31 @@ const fetchData = require('../apiClient');
 * When I have all the needed data collected I send it to the client.
 */
 router.get('/', async function(req, res, next) {
-  const query = req.query.keyword;
-  let page = 0;
-  const call1 = await fetchData(axios, query, ++page);
-  const call2 = await fetchData(axios, query, ++page);
-  let data = {};
-  if (!call1.hasOwnProperty('Error')) {
-    data = {'Search': [...call1.Search]};
-    if (!call2.hasOwnProperty('Error')) {
-      data = {'Search': [...call1.Search, ...call2.Search]};
+  const searchKeyword = req.query.keyword;
+  const cachedData = cache.get(searchKeyword);
+  // if there is cached data we send it. Else we fetch external API, cache the data and send it.
+  if (cachedData) {
+    console.log('cachedData1::', cache.getStats());
+    res.status(200).send(JSON.parse(cachedData));
+    return;
+  } else {
+    let page = 0;
+    const call1Data = await fetchData(axios, searchKeyword, ++page);
+    const call2Data = await fetchData(axios, searchKeyword, ++page);
+    let data = {};
+    if (!call1Data.hasOwnProperty('Error')) {
+      data = {'Search': [...call1Data.Search]};
+      if (!call2Data.hasOwnProperty('Error')) {
+        data = {'Search': [...call1Data.Search, ...call2Data.Search]};
+      }
+      console.log('cachedData2::', cache.getStats());
+      cache.set(searchKeyword, JSON.stringify(data))
+      res.status(200).send(data);
+    } 
+    else {
+      res.status(200).send({});
     }
-    res.status(200).send(data);
-  } 
-  else {
-    res.status(200).send({});
-  }  
+  }
 });
 
 module.exports = router;
