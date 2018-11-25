@@ -12,7 +12,7 @@ const fetchData = require('../apiClient');
 */
 router.get('/', async function(req, res, next) {
   const query = req.query.keyword;
-  let page = 2;
+  let page = 0;
   const call1 = await fetchData(axios, query, ++page);
   const call2 = await fetchData(axios, query, ++page);
   let data = {};

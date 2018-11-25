@@ -15,18 +15,31 @@
  *    }
  */
 
-import { CHANGE_MOVIE_TITLE } from './constants';
+import { 
+  CHANGE_MOVIE_TITLE,
+  CHECK_SESSION_STORAGE,
+  SET_SESSION_STORAGE
+} from './constants';
 
 /**
  * Changes the input field of the form
  *
- * @param  {name} name The new text of the input field
+ * @param  {movieTitle} The new text of the input field
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function changeMovieTitle(name) {
+export function changeMovieTitle(movieTitle) {
   return {
     type: CHANGE_MOVIE_TITLE,
-    name
+    movieTitle
+  };
+}
+
+export function setSessionStorage(name, val) {
+  sessionStorage.setItem(name, JSON.stringify(val));
+  return {
+    type: SET_SESSION_STORAGE,
+    name,
+    val
   };
 }

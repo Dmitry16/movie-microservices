@@ -9,4 +9,6 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const CHANGE_MOVIE_TITLE = 'boilerplate/Home/CHANGE_MOVIE_TITLE';
+export const CHANGE_MOVIE_TITLE = 'Home/CHANGE_MOVIE_TITLE';
+export const CHECK_SESSION_STORAGE = 'Home/CHECK_SESSION_STORAGE';
+export const SET_SESSION_STORAGE = 'Home/SET_SESSION_STORAGE';

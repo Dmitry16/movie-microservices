@@ -15,13 +15,14 @@ import { CHANGE_MOVIE_TITLE } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  currentMovieTitle: 'zombie'
+  currentMovieTitle: ''
 });
 
 function homeReducer(state = initialState, action) {
+  console.log('homeReducer', action)
   switch (action.type) {
     case CHANGE_MOVIE_TITLE:
-      return state.set('currentMovieTitle', action.name);
+      return state.set('currentMovieTitle', action.movieTitle)
     default:
       return state;
   }

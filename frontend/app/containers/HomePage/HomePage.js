@@ -17,29 +17,29 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     this.timeoutId;
     this.debounce = false;
     this.keyPressCounter = 0;
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
-  /**
-   * when initial state currentMovieTitle is not null, submit the form to load movies
-   */
+  // when component is mounted load movies with the default title
   componentDidMount() {
-    this.props.onSubmitForm();
-    // if (this.props.currentMovieTitle && this.props.currentMovieTitle.trim().length > 0) {
-    // }
+    const defaultMovieTitle = 'zombie';
+    this.props.onChangeMovieTitle(null, defaultMovieTitle);
+    this.props.loadData(defaultMovieTitle);
   }
+
   handleInputChange(e) {
     this.keyPressCounter++;
     this.props.onChangeMovieTitle(e);
     if (!this.debounce && this.keyPressCounter >= 3) {
       this.debounce = true;
       this.timeoutId = setTimeout(() => {
-        this.props.onSubmitForm(e);
+        this.props.loadData(this.props.currentMovieTitle);
         this.debounce = false;
       }, 300);
     } 
     else if (this.timeoutId && this.keyPressCounter >= 3) {
       clearTimeout(this.timeoutId);
       this.timeoutId = setTimeout(() => {
-        this.props.onSubmitForm(e);
+        this.props.loadData(this.props.currentMovieTitle);
         this.debounce = false;
       }, 300);
       this.debounce = true;
@@ -76,7 +76,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                   type="text"
                   placeholder="kuku"
                   value={this.props.currentMovieTitle}
-                  onChange={this.handleInputChange.bind(this)}
+                  onChange={this.handleInputChange}
                 />
               </label>
             </form>

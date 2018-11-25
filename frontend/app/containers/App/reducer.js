@@ -34,7 +34,7 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false)
-        .setIn(['movieData', 'movies'], false);
+        .setIn(['movieData', 'movies'], false)
     case LOAD_MOVIES_SUCCESS:
       return state
         .setIn(['movieData', 'movies'], action.movies)

@@ -15,8 +15,6 @@ export default class MovieListItem extends React.PureComponent { // eslint-disab
     const { movie } = this.props;
     let titleprefix = '';
 
-    console.log('MovieListItem movie prop::', movie)
-
     // If the repository is owned by a different person than we got the data for
     // it's a fork and we should show the name of the owner
     if (movie && movie.Title !== this.props.currentMovieTitle) {

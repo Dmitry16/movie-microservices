@@ -5,6 +5,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { LOAD_MOVIES } from 'containers/App/constants';
 import { moviesLoaded, movieLoadingError } from 'containers/App/actions';
+import { setSessionStorage } from 'containers/HomePage/actions';
 
 import request from 'utils/request';
 import { makeSelectMovieTitle } from 'containers/HomePage/selectors';
@@ -20,7 +21,8 @@ export function* getMovies() {
   try {
     // Call the request helper (see 'utils/request')
     const movies = yield call(request, requestURL);
-    yield put(moviesLoaded(movies.Search, currentMovieTitle));
+    yield put(moviesLoaded(movies.Search, movieTitle));
+    yield put(setSessionStorage(movieTitle, movies))
   } catch (err) {
     yield put(movieLoadingError(err));
   }
