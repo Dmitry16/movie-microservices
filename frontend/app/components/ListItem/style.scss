@@ -3,13 +3,8 @@
   width: 31%;
   height: 21em;
   display: flex;
-  position: relative;
   border: 1px solid #eee;
   overflow: hidden;
-
-  &:first-child {
-    border-top: none;
-  }
 
   .list-item {
     margin: 0.5em;

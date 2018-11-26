@@ -22,16 +22,16 @@ describe('App Actions', () => {
   });
 
   describe('moviesLoaded', () => {
-    it('should return the correct type and the passed repos', () => {
+    it('should return the correct type and the passed movies', () => {
       const fixture = ['Test'];
-      const movieTitle = 'test';
+      const currentMovieTitle = 'test';
       const expectedResult = {
         type: LOAD_MOVIES_SUCCESS,
-        repos: fixture,
-        movieTitle,
+        movies: fixture,
+        currentMovieTitle,
       };
 
-      expect(moviesLoaded(fixture, username)).toEqual(expectedResult);
+      expect(moviesLoaded(fixture, currentMovieTitle)).toEqual(expectedResult);
     });
   });
 

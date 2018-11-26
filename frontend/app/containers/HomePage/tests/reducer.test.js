@@ -1,13 +1,13 @@
 import { fromJS } from 'immutable';
 
 import homeReducer from '../reducer';
-import { changeUsername } from '../actions';
+import { changeMovieTitle } from '../actions';
 
 describe('homeReducer', () => {
   let state;
   beforeEach(() => {
     state = fromJS({
-      username: ''
+      currentMovieTitle: ''
     });
   });
 
@@ -16,10 +16,9 @@ describe('homeReducer', () => {
     expect(homeReducer(undefined, {})).toEqual(expectedResult);
   });
 
-  it('should handle the changeUsername action correctly', () => {
-    const fixture = 'flexdinesh';
-    const expectedResult = state.set('username', fixture);
-
-    expect(homeReducer(state, changeUsername(fixture))).toEqual(expectedResult);
+  it('should handle the movieTitle action correctly', () => {
+    const fixture = 'Mad Max';
+    const expectedResult = state.set('currentMovieTitle', fixture);
+    expect(homeReducer(state, changeMovieTitle(fixture))).toEqual(expectedResult);
   });
 });

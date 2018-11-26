@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 const ListItem = (props) => (
-  <div className="list-item-wrapper">
+  <section className="list-item-wrapper">
     <div className="list-item">{props.item}</div>
-  </div>
+  </section>
 );
 
 ListItem.propTypes = {

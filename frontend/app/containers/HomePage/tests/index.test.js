@@ -5,50 +5,44 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import MoviesList from 'components/MoviesList';
+import MovieList from 'components/MovieList';
 import HomePage from '../HomePage';
 import { mapDispatchToProps } from '../index';
 import { changeMovieTitle } from '../actions';
 import { loadMovies } from '../../App/actions';
 
 describe('<HomePage />', () => {
-  it('should render the repos list', () => {
+  it('should render the movies list', () => {
+    const onChangeMovieTitleSpy = jest.fn();
+    const loadDataSpy = jest.fn();
     const renderedComponent = shallow(
-      <HomePage loading error={false} repos={[]} />
+      <HomePage 
+        loading error={false} movies={[]} 
+        onChangeMovieTitle={onChangeMovieTitleSpy}
+        loadData={loadDataSpy}
+      />
     );
     expect(
-      renderedComponent.contains(<MoviesList loading error={false} repos={[]} />)
+      renderedComponent.contains(<MovieList loading error={false} movies={[]} />)
     ).toEqual(true);
   });
 
-  it('should render fetch the repos on mount if a username exists', () => {
-    const submitSpy = jest.fn();
+  it('should render fetch the movies on mount', () => {
+    const loadDataSpy = jest.fn();
     mount(
       <HomePage
-        username="Not Empty"
+        movieTitle="Not Empty"
         onChangeMovieTitle={() => {}}
-        onSubmitForm={submitSpy}
+        loadData={loadDataSpy}
       />
     );
-    expect(submitSpy).toHaveBeenCalled();
+    expect(loadDataSpy).toHaveBeenCalled();
   });
 
-  it('should not call onSubmitForm if username is an empty string', () => {
-    const submitSpy = jest.fn();
-    mount(<HomePage onChangeMovieTitle={() => {}} onSubmitForm={submitSpy} />);
-    expect(submitSpy).not.toHaveBeenCalled();
-  });
-
-  it('should not call onSubmitForm if username is null', () => {
-    const submitSpy = jest.fn();
-    mount(
-      <HomePage
-        username=""
-        onChangeMovieTitle={() => {}}
-        onSubmitForm={submitSpy}
-      />
-    );
-    expect(submitSpy).not.toHaveBeenCalled();
+  it('should call loadData with default movieTitle', () => {
+    const loadDataSpy = jest.fn();
+    mount(<HomePage onChangeMovieTitle={() => {}} loadData={loadDataSpy} />);
+    expect(loadDataSpy).toHaveBeenCalled();
   });
 
   describe('mapDispatchToProps', () => {
@@ -62,9 +56,9 @@ describe('<HomePage />', () => {
       it('should dispatch changeMovieTitle when called', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
-        const username = 'flexdinesh';
-        result.onChangeMovieTitle({ target: { value: username } });
-        expect(dispatch).toHaveBeenCalledWith(changeMovieTitle(username));
+        const movieTitle = 'Mad Max';
+        result.onChangeMovieTitle({ target: { value: movieTitle } });
+        expect(dispatch).toHaveBeenCalledWith(changeMovieTitle(movieTitle));
       });
     });
 

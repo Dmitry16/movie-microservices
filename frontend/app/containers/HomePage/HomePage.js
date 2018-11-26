@@ -21,7 +21,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
   }
   // when component is mounted load movies with the default title
   componentDidMount() {
-    const defaultMovieTitle = 'zombie';
+    const defaultMovieTitle = 'Star';
     this.props.onChangeMovieTitle(null, defaultMovieTitle);
     this.props.loadData(defaultMovieTitle);
   }
@@ -48,7 +48,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 
   render() {
     const { loading, error, movies } = this.props;
-    const moviesListProps = {
+    const movieListProps = {
       loading,
       error,
       movies,
@@ -80,7 +80,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 />
               </label>
             </form>
-            <MovieList {...moviesListProps} />
+            <MovieList {...movieListProps} />
           </section>
         </div>
       </article>

@@ -6,7 +6,7 @@ import ListItem from '../index';
 describe('<ListItem />', () => {
   it('should have a className', () => {
     const renderedComponent = mount(<ListItem className="test" />);
-    expect(renderedComponent.find('li').prop('className')).toBeDefined();
+    expect(renderedComponent.find('div').prop('className')).toBeDefined();
   });
 
   it('should render the content passed to it', () => {

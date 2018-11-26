@@ -19,7 +19,6 @@ const initialState = fromJS({
 });
 
 function homeReducer(state = initialState, action) {
-  console.log('homeReducer', action)
   switch (action.type) {
     case CHANGE_MOVIE_TITLE:
       return state.set('currentMovieTitle', action.movieTitle)
