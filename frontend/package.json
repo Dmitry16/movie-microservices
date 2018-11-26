@@ -1,16 +1,16 @@
 {
-  "name": "react-redux-boilerplate",
+  "name": "movie-searcher",
   "version": "1.0.0",
-  "description": "A minimal react-redux boilerplate with all the best practices",
+  "description": "A single page app",
   "repository": {
     "type": "git",
-    "url": "git://github.com/flexdinesh/react-redux-boilerplate.git"
+    "url": ""
   },
   "engines": {
     "npm": ">=3",
     "node": ">=5"
   },
-  "author": "Dinesh Pandiyan",
+  "author": "Dmytro Davydov",
   "license": "MIT",
   "scripts": {
     "prebuild": "npm run build:clean",
@@ -27,6 +27,12 @@
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll"
+  },
+  "jest": {
+    "verbose": true,
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ]
   },
   "dependencies": {
     "babel-polyfill": "6.26.0",

@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { localStorage } from 'jest-localstorage-mock';
 
 import MovieList from 'components/MovieList';
 import HomePage from '../HomePage';
@@ -63,6 +64,17 @@ describe('<HomePage />', () => {
         />
       );
       expect(onChangeMovieTitleSpy).toHaveBeenCalledWith(defaultMovieTitle);
+    });
+  });
+
+  describe('sessionStorage', () => {
+    it('should save to sessionStorage', () => {
+      // const KEY = 'foo',
+      //   VALUE = 'bar';
+      // dispatch(action.setSessionStorage(KEY, VALUE));
+      // expect(sessionStorage.setItem).toHaveBeenLastCalledWith(KEY, VALUE);
+      // expect(sessionStorage.__STORE__[KEY]).toBe(VALUE);
+      // expect(Object.keys(sessionStorage.__STORE__).length).toBe(1);
     });
   });
 
