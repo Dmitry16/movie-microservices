@@ -30,7 +30,6 @@ const mapDispatchToProps = (dispatch) => ({
   // session storage if we don't it is loaded from the external api 
   loadData: (movieTitle) => {
     const moviesInStorage = JSON.parse(sessionStorage.getItem(movieTitle));
-    // console.log('isMovieInStorage', movieTitle, moviesInStorage)
     !moviesInStorage 
       ? dispatch(loadMovies(movieTitle))
       : dispatch(moviesLoaded(moviesInStorage.Search, movieTitle));

@@ -21,7 +21,6 @@ export function* getMovies() {
   try {
     // Call the request helper (see 'utils/request')
     const movies = yield call(request, requestURL);
-    console.log('saggaa movies::', movies);
     yield put(moviesLoaded(movies.Search, movieTitle));
     yield put(setSessionStorage(movieTitle, movies))
   } catch (err) {

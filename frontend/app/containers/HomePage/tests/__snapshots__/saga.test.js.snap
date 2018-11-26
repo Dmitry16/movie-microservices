@@ -22,3 +22,26 @@ Object {
   },
 }
 `;
+
+exports[`getMovies Saga should dispatch the moviesLoaded action if it requests the data successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[`getMovies Saga should dispatch the moviesLoaded action if it requests the data successfully 2`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "http://localhost:3003/api/search?keyword=Blade Runner",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;

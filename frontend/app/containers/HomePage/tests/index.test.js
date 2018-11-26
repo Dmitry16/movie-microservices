@@ -9,7 +9,7 @@ import MovieList from 'components/MovieList';
 import HomePage from '../HomePage';
 import { mapDispatchToProps } from '../index';
 import { changeMovieTitle } from '../actions';
-import { loadMovies } from '../../App/actions';
+import { loadMovies, moviesLoaded } from '../../App/actions';
 
 describe('<HomePage />', () => {
   it('should render the movies list', () => {
@@ -27,22 +27,80 @@ describe('<HomePage />', () => {
     ).toEqual(true);
   });
 
-  it('should render fetch the movies on mount', () => {
-    const loadDataSpy = jest.fn();
-    mount(
-      <HomePage
-        movieTitle="Not Empty"
-        onChangeMovieTitle={() => {}}
-        loadData={loadDataSpy}
-      />
-    );
-    expect(loadDataSpy).toHaveBeenCalled();
+  describe('on mount', () => {
+    it('should call loadData and onChangeMovieTitle', () => {
+      const onChangeMovieTitleSpy = jest.fn();
+      const loadDataSpy = jest.fn();
+      mount(
+        <HomePage
+          movieTitle="Not Empty"
+          onChangeMovieTitle={onChangeMovieTitleSpy}
+          loadData={loadDataSpy}
+        />
+      );
+      expect(onChangeMovieTitleSpy).toHaveBeenCalled();
+    });
+
+    it('should call loadData with default movieTitle', () => {
+      const defaultMovieTitle = 'Dune';
+      const loadDataSpy = jest.fn();
+      mount(
+        <HomePage 
+          onChangeMovieTitle={() => {}}
+          loadData={() => loadDataSpy(defaultMovieTitle)}
+        />
+      );
+      expect(loadDataSpy).toHaveBeenCalledWith(defaultMovieTitle);
+    });
+
+    it('should call onChangeMovieTitle with default movieTitle', () => {
+      const defaultMovieTitle = 'Dune';
+      const onChangeMovieTitleSpy = jest.fn();
+      mount(
+        <HomePage 
+          loadData={() => {}}
+          onChangeMovieTitle={() => onChangeMovieTitleSpy(defaultMovieTitle)}
+        />
+      );
+      expect(onChangeMovieTitleSpy).toHaveBeenCalledWith(defaultMovieTitle);
+    });
   });
 
-  it('should call loadData with default movieTitle', () => {
-    const loadDataSpy = jest.fn();
-    mount(<HomePage onChangeMovieTitle={() => {}} loadData={loadDataSpy} />);
-    expect(loadDataSpy).toHaveBeenCalled();
+  describe('loadData', () => {
+    it('should be injected', () => {
+      const dispatch = jest.fn();
+      const result = mapDispatchToProps(dispatch);
+      expect(result.loadData).toBeDefined();
+    });
+
+    it('should dispatch loadMovies when called', () => {
+      const dispatch = jest.fn();
+      const result = mapDispatchToProps(dispatch);
+      result.loadData();
+      expect(dispatch).toHaveBeenCalledWith(loadMovies());
+    });
+
+    // it('should dispatch moviesLoaded whith session storage data', () => {
+    //   const dispatch = jest.fn();
+    //   const result = mapDispatchToProps(dispatch);
+    //   result.loadData('Star');
+    //   expect(dispatch).toHaveBeenCalledWith(moviesLoaded());
+    // });
+  });
+
+  describe('onChangeMovieTitle', () => {
+    it('should be injected', () => {
+      const dispatch = jest.fn();
+      const result = mapDispatchToProps(dispatch);
+      expect(result.onChangeMovieTitle).toBeDefined();
+    });
+
+    it('should dispatch changeMovieTitle when called', () => {
+      const dispatch = jest.fn();
+      const result = mapDispatchToProps(dispatch);
+      result.onChangeMovieTitle();
+      expect(dispatch).toHaveBeenCalledWith(changeMovieTitle());
+    });
   });
 
   describe('mapDispatchToProps', () => {

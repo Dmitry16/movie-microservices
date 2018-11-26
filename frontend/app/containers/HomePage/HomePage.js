@@ -25,7 +25,8 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     this.props.onChangeMovieTitle(null, defaultMovieTitle);
     this.props.loadData(defaultMovieTitle);
   }
-
+  // wait for user presses any key 3 times then debouncing it for 300 msec 
+  // fetch data for the printed keyword or load it from the session storage if there is such
   handleInputChange(e) {
     this.keyPressCounter++;
     this.props.onChangeMovieTitle(e);
@@ -54,8 +55,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       movies,
     };
 
-    console.log('HomePage movies::', movies)
-
     return (
       <article>
         <Helmet>
@@ -69,7 +68,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
           <section className="centered">
             <form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="currentMovieTitle">
-              Type in a movie title here:
+              Type in a movie title to look for:
                 <br />
                 <input
                   id="currentMovieTitle"

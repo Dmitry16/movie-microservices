@@ -9,7 +9,7 @@ import { moviesLoaded, movieLoadingError } from 'containers/App/actions';
 
 import moviesData, { getMovies } from '../saga';
 
-const movieTitle = 'Blade Runner';
+const currentMovieTitle = 'Blade Runner';
 
 /* eslint-disable redux-saga/yield-effects */
 describe('getMovies Saga', () => {
@@ -23,19 +23,9 @@ describe('getMovies Saga', () => {
     const selectDescriptor = getMoviesGenerator.next().value;
     expect(selectDescriptor).toMatchSnapshot();
 
-    const callDescriptor = getMoviesGenerator.next(movieTitle).value;
+    const callDescriptor = getMoviesGenerator.next(currentMovieTitle).value;
     expect(callDescriptor).toMatchSnapshot();
   });
-
-  // it('should dispatch the moviesLoaded action if it requests the data successfully', () => {
-  //   const response = [{
-  //     title: 'First movie',
-  //   }, {
-  //     title: 'Second movie',
-  //   }];
-  //   const putDescriptor = getMoviesGenerator.next(response).value;
-  //   expect(putDescriptor).toEqual(put(moviesLoaded(response, movieTitle)));
-  // });
 
   it('should call the movieLoadingError action if the response errors', () => {
     const response = new Error('Some error');
