@@ -9,7 +9,7 @@ import { setSessionStorage } from 'containers/HomePage/actions';
 
 import request from 'utils/request';
 import { makeSelectMovieTitle } from 'containers/HomePage/selectors';
-
+import api from '../../api';
 /**
  * Github repos request/response handler
  */
@@ -20,7 +20,7 @@ export function* getMovies() {
 
   try {
     // Call the request helper (see 'utils/request')
-    const movies = yield call(request, requestURL);
+    const movies = yield call(api.OMDb.getMovies, requestURL);
     yield put(moviesLoaded(movies.Search, movieTitle));
     yield put(setSessionStorage(movieTitle, movies))
   } catch (err) {
