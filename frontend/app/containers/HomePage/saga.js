@@ -1,7 +1,6 @@
 /**
- * Gets the repositories of the user from Github
+ * Gets the movies from the backend REST Api
  */
-
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { LOAD_MOVIES } from 'containers/App/constants';
 import { moviesLoaded, movieLoadingError } from 'containers/App/actions';
@@ -11,10 +10,10 @@ import request from 'utils/request';
 import { makeSelectMovieTitle } from 'containers/HomePage/selectors';
 
 /**
- * Github repos request/response handler
+ * Backend data request/response handler
  */
 export function* getMovies() {
-  // Select username from store
+  // Select movieTitle from store
   const movieTitle = yield select(makeSelectMovieTitle());
   const requestURL = `http://localhost:3003/api/search?keyword=${movieTitle}`;
 

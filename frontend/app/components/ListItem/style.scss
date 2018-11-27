@@ -14,14 +14,14 @@
   }
 }
 
-@media only screen and (max-width: 600px) {
-  [class*="list-item-wrapper"] {
+@media only screen and (max-width: 768px) {
+  .list-item-wrapper {
     width: 48%;
   }
 }
-
-@media only screen and (max-width: 330px) {
-  [class*="list-item-wrapper"] {
-      width: 100%;
+@media only screen and (max-width: 400px) {
+  .list-item-wrapper {
+    width: 48%;
+    height: 18em;
   }
 }
