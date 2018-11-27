@@ -1,9 +1,7 @@
-// const mandatory = require('../utils/validationHelper');
+const mandatory = require('../utils/validationHelper');
 
 class Base {
-    constructor({ apiClient
-        //  = mandatory('apiClient')
-         }) {
+    constructor({ apiClient = mandatory('apiClient') }) {
         
         this.apiClient = apiClient;
     }

@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const fetchData = require('../api');
+const request = require('../api');
 const NodeCache = require( 'node-cache' );
 const cache = new NodeCache({});
 /* 
@@ -21,11 +21,17 @@ router.get('/', async function(req, res, next) {
     res.status(200).send(JSON.parse(cachedData));
     return;
   } else {
-    let page = 0;
+    let page = 0,
+      data = {},
+      call1Data = [],
+      call2Data = [];
+
     try {
-      const call1Data = await fetchData.OMDb.getMovies(axios, searchKeyword, ++page);
-      const call2Data = await fetchData.OMDb.getMovies(axios, searchKeyword, ++page);
-      let data = {};
+      call1Data = await request.omdbApi.getMovies(axios, searchKeyword, ++page);
+      call2Data = await request.omdbApi.getMovies(axios, searchKeyword, ++page);
+    }
+    catch(err) { console.log(err.errno) }
+
       // check if the response has an error
       if (call1Data && !call1Data.hasOwnProperty('Error')) {
         data = {'Search': [...call1Data.Search]};
@@ -38,13 +44,11 @@ router.get('/', async function(req, res, next) {
         res.status(200).send(data);
       } 
       else if (call1Data || call2Data) {
-        res.status(404).send({});
+        // if there is responce with an error send empty object to the client
+        res.status(200).send({});
       } else {
         res.status(501).send({})
       }
-    } catch(err) {
-      console.error(err.code)
-    }
   }
 });
 
