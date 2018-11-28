@@ -5,21 +5,25 @@ const request = require('../api');
 const NodeCache = require( 'node-cache' );
 const cache = new NodeCache({});
 /* 
-* GET search query from the frontend client
-* and fetch data from the external API.
-* Here I make use of the ES6 destructuring and async-await API
+* GET request from the frontend client, fetch data from the external API
+* and send collected data from 2 api calls to the client.
+*
+* ES6 features destructuring and async-await API are used
 * in order to consequently get and merge data from the external API.
 * When I have all the needed data collected I send it to the client.
 */
 router.get('/', async function(req, res, next) {
+  // extract the search keyword from the request object
   const searchKeyword = req.query.keyword;
+  // get the data by the keyword from the cache
   const cachedData = cache.get(searchKeyword);
-  // if there is cached data we send it to the client. 
-  // Else we fetch external API, cache the data and then send it.
+  // if there is cached data we send it to the client
   if (cachedData) {
     console.log('cachedDataStats:', cache.getStats());
     res.status(200).send(JSON.parse(cachedData));
     return;
+  // if there is no cached data make api calls, check the data,
+  // set it to the cache and send it to the frontend client
   } else {
     let page = 0,
       data = {},
@@ -32,7 +36,8 @@ router.get('/', async function(req, res, next) {
     }
     catch(err) { console.log(err.errno) }
 
-      // check if the response has an error
+      // check if the responses have error
+      // if not merge them into the data object
       if (call1Data && !call1Data.hasOwnProperty('Error')) {
         data = {'Search': [...call1Data.Search]};
 

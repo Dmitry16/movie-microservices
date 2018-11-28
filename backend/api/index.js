@@ -2,7 +2,7 @@ const { baseUrl, omdbAccessToken } = require('../config');
 const ApiClient = require('./ApiClient');
 const mandatory = require('../utils/validationHelper');
 
-const OmdbFetchAPI  = require('./customAPI');
+const FetchOmdbAPI  = require('./customAPI');
 
 function apiFactory( 
     baseURL = mandatory('baseURL'),
@@ -11,7 +11,7 @@ function apiFactory(
     const api = new ApiClient( baseURL, omdbAccessToken );
 
     return {
-        omdbApi: new OmdbFetchAPI({ apiClient: api }),
+        fetchOmdbApi: new FetchOmdbAPI({ apiClient: api }),
     };
 }
 

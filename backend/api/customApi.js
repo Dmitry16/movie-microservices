@@ -5,9 +5,9 @@ const Base = require('./Base');
 class OmdbFetchAPI extends Base {
 
     getMovies(
-        client = mandatory('client'),
-        query = mandatory('query'),
-        pageNum = mandatory('pageNum')
+      client = mandatory('client'),
+      query = mandatory('query'),
+      pageNum = mandatory('pageNum')
     ){
         return this.apiClient.get(client, query, pageNum);
     }

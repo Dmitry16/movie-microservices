@@ -1,9 +1,7 @@
-const request = require('supertest');
-const app = require('../app');
-const fetchData = require('../apiClient');
-const { expect, assert } = require('chai');
+const HttpClient = require('../api');
+const { expect } = require('chai');
 
-//axios mock
+//external api call mock
 let isFakeAxiosCalled = false;
 const fakeApiResponse = { data: [{foo: 'bar'}] };
 const fakeAxios = {
@@ -16,14 +14,7 @@ const fakeAxios = {
     }
 }
 const req = {query: {keyword: 'str'}};
-
-describe('GET request to "/" endpoint', function() {
-    it('server responds with status 200', function(done){
-        request(app)
-        .get('/')
-        .expect(200, done)
-    });
-});
+const fakeParameters = [ fakeAxios, req.query.keyword, 0 ];
 
 describe('GET request to "/api/search" endpoint', function() {
     it('gets search parameters from the req object', function(){
@@ -31,34 +22,37 @@ describe('GET request to "/api/search" endpoint', function() {
     });
 
     it('calls to OMDb Api with search parameters', function() {
-        fetchData(fakeAxios, req.query.str);
+        HttpClient.fetchOmdbApi.getMovies(...fakeParameters);
         expect(isFakeAxiosCalled).to.equal(true)
     });
 
     it('gets response from OMDb Api', function() {
-        fetchData(fakeAxios, req.query.str).then((data) => {
+        HttpClient.fetchOmdbApi.getMovies(...fakeParameters).then((data) => {
             expect(data).to.not.be.empty
         });
     });
 
+    it('getMovies method returns a promise', function() {
+        expect(HttpClient.fetchOmdbApi.getMovies(...fakeParameters))
+        .to.be.a('promise');
+    });
+
     it('gets data from OMDb Api', function() {
-        fetchData(fakeAxios, req.query.str).then((data) => {
+        HttpClient.fetchOmdbApi.getMovies(...fakeParameters).then((data) => {
             expect(data).to.not.be.empty
         });
     });
 
     it('the data is an "array"', function() {
-        fetchData(fakeAxios, req.query.str).then((data) => {
+        HttpClient.fetchOmdbApi.getMovies(...fakeParameters).then((data) => {
             expect(data).to.be.an('array')
         });
     });
 
-    it('server responds with json data', function(done){
-        request(app)
-            .get('/api/search')
-            .expect(200)
-            .expect('Content-Type', /json/, done)
-            // .expect('Content-Length', '20')
+    it('getMovies method throw an error when parameters are missing', function() {
+        try {
+            HttpClient.fetchOmdbApi.getMovies()
+            .then((data) => {})
+        } catch(err) { expect(err).to.be.an('Error') }
     });
-
 });
