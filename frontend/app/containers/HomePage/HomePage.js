@@ -73,7 +73,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 <input
                   id="currentMovieTitle"
                   type="text"
-                  placeholder="kuku"
+                  placeholder="movie title"
                   value={this.props.currentMovieTitle}
                   onChange={this.handleInputChange}
                 />

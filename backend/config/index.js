@@ -1,6 +1,6 @@
 module.exports = {
 
   baseUrl: 'http://www.omdbapi.com/',
-  omdbAccessToken: require('./token'),
-    // OMDb_PERSONAL_ACCESS_TOKEN: process.env.OMDb_PERSONAL_ACCESS_TOKEN
+  omdbAccessToken: process.env.OMDb_PERSONAL_ACCESS_TOKEN
+  // omdbAccessToken: require('./token'),
   }

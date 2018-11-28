@@ -1,8 +1,15 @@
+To run the app:
+
+1. If you have omdb api access key, please use it: 
+    it has to be set in the docker-compose.yml > backend > environment > OMDb_PERSONAL_ACCESS_TOKEN=your_key
+
+2. Run 'docker-compose up' from the root.
+
+High Level Design overview.
+
 Frontend.
 
 I used this (https://github.com/flexdinesh/react-redux-boilerplate) boilerplate because it has a rather good setup and it has enough stars at github that has to be considered as well. It uses React v16.4 which has a lot of great features such as: fiber under the hood (async rendering of the DOM), PureComponent, better ref and context apis, better error handling with ErrorBoundary, Fragments, Portals etc. It uses react-router v4.3 which has the component api design. Also other popular libraries from the react ecosystem which permit better development and testing according to the best practices such as immutable.js, redux-saga, reselect, lodash, etc. Besides of that I also like the feature-based project structure and TDD approach as well.
-
-The High Level Design overview.
 
 The project has feature-based structure, redux for the state management of the app and react-router for routing. Components are devided separating concerns into 2 categories. The containers are concerned with providing the data flow and making things to work, and the components concerned with presentation. External Api calls are performed from redux-saga which design permits better testing and managing of side effects. 
 Babel is used as a transpiler in order to use all features of ES6. Webpack is used as a modules, plugins and loaders bundler. Npm as package manager and task runner.
@@ -11,8 +18,6 @@ The feature-based approach and redux abstracted data store permits better reusab
 Backend.
 
 I used express-generator boilerplate because it has minimal project structure (role-based) with basic server setup, error handling, routing etc. 
-
-The High Level Design overview.
 
 When server recieves a get request to the '/api/search' endpoint. The app performs next main operations: 
 1. The request object is parsed to get the search keyword;

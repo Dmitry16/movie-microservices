@@ -5,12 +5,11 @@ services:
     build:
       context: ./backend
       args:
-        build_version: 1
         app_env: ${APP_ENV}
     image: backend
     environment:
       - NODE_ENV=development
-      # - OMDb_PERSONAL_ACCESS_TOKEN=
+      - OMDb_PERSONAL_ACCESS_TOKEN=ad80c474
     volumes:
       - ./backend:/app
     ports:
@@ -21,13 +20,11 @@ services:
       timeout: 10s
       retries: 3
       start_period: 20s
-    # depends_on: [ db ]
 
   frontend:
     build:
       context: ./frontend
       args:
-        build_version: 1
         app_env: ${APP_ENV}
     image: frontend
     environment:
@@ -37,16 +34,3 @@ services:
     ports:
       - "3000:3000"
     depends_on: [ backend ]
-
-  # db:
-  #   build: ./db
-  #   image: postgres
-  #   volumes:
-  #     - ./db/pgdata:/pgdata
-  #   ports:
-  #     - "5433:5432"
-  #   environment:
-  #     - POSTGRES_DB=postgres
-  #     - POSTGRES_USER=postgres
-  #     - PGDATA=/pgdata
-  #   command: psql -U postgres -p 5432 -h postgres
