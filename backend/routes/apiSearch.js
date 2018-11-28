@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const request = require('../api');
+const httpClient = require('../api');
 const NodeCache = require( 'node-cache' );
 const cache = new NodeCache({});
 /* 
@@ -31,8 +31,8 @@ router.get('/', async function(req, res, next) {
       call2Data = [];
 
     try {
-      call1Data = await request.omdbApi.getMovies(axios, searchKeyword, ++page);
-      call2Data = await request.omdbApi.getMovies(axios, searchKeyword, ++page);
+      call1Data = await httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
+      call2Data = await httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
     }
     catch(err) { console.log(err.errno) }
 
