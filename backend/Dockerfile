@@ -5,9 +5,11 @@ ENV APP_ENV=dev
 
 WORKDIR /app
 
-COPY ./ ./
+COPY package.json ./
 
 RUN npm install && npm install -g nodemon
+
+COPY src /app/src
 
 CMD if [ ${APP_ENV} = production ]; \
 	then \
@@ -16,7 +18,7 @@ CMD if [ ${APP_ENV} = production ]; \
 	cd build && \
 	hs -p 3003; \
 	else \
-	DEBUG=app:* npm start; \
+	DEBUG=app:* nodemon ./src/bin/www; \
 	fi
 
 EXPOSE 3003
