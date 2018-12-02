@@ -7,19 +7,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from 'components/ListItem';
-import { IssueIcon } from 'components/Icons';
 import './style.scss';
 
 export default class MovieListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { movie } = this.props;
-    let titleprefix = '';
-
-    // If the repository is owned by a different person than we got the data for
-    // it's a fork and we should show the name of the owner
-    if (movie && movie.Title !== this.props.currentMovieTitle) {
-      titleprefix = `${movie.Title}/`;
-    }
 
     // Put together the data of the movie
     const content = (
@@ -36,14 +28,10 @@ export default class MovieListItem extends React.PureComponent { // eslint-disab
           {movie && movie.Title} <br />
           {movie && movie.Year}
         </div>
-        {/* <a className="movie-list-item__issue-link" href={`${movie.Poster}/issues`} target="_blank" rel="noopener noreferrer">
-          <IssueIcon className="movie-list-item__issue-icon" />
-          {movie.Year}
-        </a> */}
       </div>
     );
 
-    // Render the content into a list movie
+    // Render the content into a ListItem
     return (
       <ListItem key={`movie-list-item-${movie && movie.imdbID}`} item={content} />
     );
