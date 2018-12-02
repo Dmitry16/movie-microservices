@@ -1,11 +1,8 @@
 version: '2.4'
 services:
-
   backend:
     build:
       context: ./backend
-      args:
-        app_env: ${APP_ENV}
     image: backend
     environment:
       - NODE_ENV=development
@@ -14,18 +11,10 @@ services:
       - ./backend/src:/app/src
     ports:
       - "3003:3003"
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3003 && echo 'cool, it works'"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
 
   frontend:
     build:
       context: ./frontend
-      args:
-        app_env: ${APP_ENV}
     image: frontend
     environment:
       - NODE_ENV=development

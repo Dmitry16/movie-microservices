@@ -25,37 +25,51 @@ router.get('/', async function(req, res, next) {
   // if there is no cached data make api calls, check the data,
   // set it to the cache and send it to the frontend client
   } else {
-    let page = 0,
-      data = {},
-      call1Data = [],
-      call2Data = [];
-
-    try {
-      call1Data = await httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
-      call2Data = await httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
-    }
-    catch(err) { console.log(err.errno) }
-
-      // check if the responses have error
-      // if not merge them into the data object
-      if (call1Data && !call1Data.hasOwnProperty('Error')) {
-        data = {'Search': [...call1Data.Search]};
-
-        if (call2Data && !call2Data.hasOwnProperty('Error')) {
-          data = {'Search': [...call1Data.Search, ...call2Data.Search]};
-        }
-        console.log('cachedDataStats:', cache.getStats());
-        cache.set(searchKeyword, JSON.stringify(data))
-        res.status(200).send(data);
-      } 
-      else if (call1Data || call2Data) {
-        // if there is responce with an error send empty object to the client
-        res.status(200).send({});
-      } else {
-        res.status(501).send({})
-      }
+    const data = await fetchMovies(searchKeyword);
+    data && sendMovies(res, searchKeyword, data) || res.status(400);
   }
 });
+
+async function fetchMovies(searchKeyword) {
+  let page = 0,
+  call1Data = [],
+  call2Data = [];
+
+  try {
+    call1Data = await httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
+    call2Data = await httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
+  }
+  catch(err) { 
+    console.log(err.errno)
+    return err;
+  }
+  return [call1Data, call2Data];
+}
+
+// check fetched data, set it to the cache and send it to the client
+function sendMovies(res, searchKeyword, movies) {
+  let data = {};
+  const [call1Data, call2Data] = movies;
+  // check if the responses have error
+  // if not merge them into the data object
+  if (call1Data && !call1Data.hasOwnProperty('Error')) {
+    data = {'Search': [...call1Data.Search]};
+
+    if (call2Data && !call2Data.hasOwnProperty('Error')) {
+      data = {'Search': [...call1Data.Search, ...call2Data.Search]};
+    }
+    // log cache stats and set the data to the cache
+    console.log('cachedDataStats:', cache.getStats());
+    cache.set(searchKeyword, JSON.stringify(data));
+
+    res.status(200).send(data);
+  }
+  else if (call1Data || call2Data) {
+    res.status(200).send({});
+  } else {
+    res.status(501).send({});
+  }
+}
 
 module.exports = router;
 

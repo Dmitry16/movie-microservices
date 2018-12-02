@@ -1,22 +1,11 @@
 FROM node
 
-ARG app_env
-ENV APP_ENV $app_env
-
 WORKDIR /app
 
 COPY ./ ./
 
 RUN npm install
 
-CMD if [ ${APP_ENV} = production ]; \
-	then \
-	npm install -g http-server && \
-	npm run build && \
-	cd build && \
-	hs -p 3000; \
-	else \
-	npm run start; \
-	fi
+CMD npm run start
 
 EXPOSE 3000

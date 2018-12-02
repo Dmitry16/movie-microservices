@@ -1,4 +1,4 @@
-const httpClient = require('../api');
+const httpClient = require('../src/api');
 const chai = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
