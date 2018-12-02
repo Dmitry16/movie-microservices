@@ -3,16 +3,16 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import {
-  makeSelectMovies,
-  makeSelectLoading,
-  makeSelectError
-} from 'containers/App/selectors';
+// import {
+//   makeSelectMovies,
+//   makeSelectLoading,
+//   makeSelectError
+// } from 'containers/App/selectors';
 import { loadMovies } from '../App/actions';
 import { moviesLoaded } from 'containers/App/actions';
 
 import { changeMovieTitle } from './actions';
-import { makeSelectMovieTitle } from './selectors';
+// import { makeSelectMovieTitle } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import Login from './Login';
