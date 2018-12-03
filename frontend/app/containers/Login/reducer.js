@@ -12,8 +12,8 @@ import { AUTH_USER } from './constants';
 // The initial state of the App
 const initialState = fromJS({
     currentUser: {
-      name: 'Vasya',
-      surname: 'Zhopa',
+      name: 'John',
+      surname: 'Doe',
       loggedIn: false,
     },
 });

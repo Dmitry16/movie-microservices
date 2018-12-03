@@ -3,10 +3,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { 
-  makeSelectLogin,
-  makeSelectCurrentUser
-} from './selectors';
+import { makeSelectCurrentUser } from './selectors';
 import {
   makeSelectLoading,
   makeSelectError
@@ -27,9 +24,9 @@ const mapDispatchToProps = (dispatch) => ({
   // onChangeMovieTitle: (inputEvt, defaultValue) => {
   //   dispatch(changeMovieTitle(inputEvt ? inputEvt.target.value : defaultValue))
   // },
-  onSubmitForm: (e) => {
-    if (e !== undefined && e.preventDefault) e.preventDefault();
-    dispatch(authUser());
+  onSubmitForm: (user) => {
+    // if (e !== undefined && e.preventDefault) e.preventDefault();
+    dispatch(authUser(user));
   },
   // checks if we have the data in the session storege. if we have it is loaded from the
   // session storage if we don't it is loaded from the external api 
@@ -43,7 +40,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = createStructuredSelector({
   currentUser: makeSelectCurrentUser(),
-  loggedIn: makeSelectLogin(),
   loading: makeSelectLoading(),
   error: makeSelectError()
 });

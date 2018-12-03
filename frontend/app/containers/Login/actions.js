@@ -30,7 +30,8 @@ import {
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function authUser({user}) {
+export function authUser(user) {
+    console.log('authUser::', user);
     return {
         type: AUTH_USER,
         user

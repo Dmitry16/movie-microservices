@@ -4,23 +4,24 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { AUTH_USER } from './constants';
 import { userAuthSuccess, userAuthError, userSession } from './actions';
+import { makeSelectCurrentUser } from './selectors';
 
 import request from 'utils/request';
-// import { makeSelectMovieTitle } from 'containers/HomePage/selectors';
 
 /**
  * Backend data request/response handler
  */
 export function* getAuth() {
   // Select user from store
-  const user = yield select(makeSelectUser());
+  const user = yield select(makeSelectCurrentUser());
+  console.log('getAuth', user)
   const requestURL = `http://localhost:3003/api/search?keyword=${user}`;
 
   try {
     // Call the request helper (see 'utils/request')
     const userAuth = yield call(request, requestURL);
     yield put(userAuthSuccess(userAuth, true));
-    yield put(userSession(movieTitle, movies))
+    yield put(userSession(userAuth))
   } catch (err) {
     yield put(userAuthError(err));
   }

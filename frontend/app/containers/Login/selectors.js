@@ -6,18 +6,12 @@ import { createSelector } from 'reselect';
 
 const selectLogin = (state) => state.get('login');
 
-const makeSelectLogin = () => createSelector(
-    selectLogin,
-    (loginState) => loginState.get('loggedIn')
-);
-
 const makeSelectCurrentUser = () => createSelector(
     selectLogin,
-    (loginState) => loginState.get('currentUser')
+    (loginState) => loginState.toJS('currentUser').currentUser
 );
 
 export {
     selectLogin,
-    makeSelectLogin,
     makeSelectCurrentUser
 };

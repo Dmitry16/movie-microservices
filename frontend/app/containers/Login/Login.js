@@ -8,11 +8,13 @@ class Login extends React.PureComponent {
     handleInputChange() {
 
     }
+    handleSubmit(e) {
+        e.preventDefault();
+        this.props.onSubmitForm(this.props.currentUser);
+    }
     render() {
 
-        console.log('Login this.props::', this.props);
-
-        const { currentUser: { name, surname } } = this.props;
+        const { currentUser: { name, surname }} = this.props;
 
         return (
             <article>
@@ -25,7 +27,7 @@ class Login extends React.PureComponent {
                     <h2>Movie Search Login Page</h2>
                 </section>
                 <section className="centered">
-                    <form onSubmit={this.props.onSubmitForm}>
+                    <form onSubmit={this.handleSubmit.bind(this)}>
                         <label htmlFor="loginForm">
                         Type in a user name to login with:
                             <br />
@@ -35,15 +37,15 @@ class Login extends React.PureComponent {
                                 placeholder="name"
                                 value={name}
                                 onChange={this.handleInputChange}
-                            />
-                            <br />
+                            /><br />
                             <input className = "form-input"
                                 id="userSurname"
                                 type="text"
                                 placeholder="surname"
                                 value={surname}
                                 onChange={this.handleInputChange}
-                            />
+                            /><br />
+                            <input type="submit" value="Submit" />
                         </label>
                     </form>
                 </section>
@@ -63,5 +65,5 @@ Login.propTypes = {
     ]),
     currentUser: PropTypes.object,
     onSubmitForm: PropTypes.func
-  };
+};
   
