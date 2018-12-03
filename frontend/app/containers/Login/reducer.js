@@ -11,8 +11,11 @@ import { AUTH_USER } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-    authUser: false,
-    loggedIn: false
+    currentUser: {
+      name: 'Vasya',
+      surname: 'Zhopa',
+      loggedIn: false,
+    },
 });
 
 function loginReducer(state = initialState, action) {
@@ -24,4 +27,4 @@ function loginReducer(state = initialState, action) {
   }
 }
 
-export default homeReducer;
+export default loginReducer;

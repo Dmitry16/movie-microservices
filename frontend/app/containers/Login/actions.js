@@ -17,6 +17,10 @@
 
 import { 
     AUTH_USER,
+    AUTH_SUCCESS,
+    AUTH_FAILURE,
+    AUTH_ERROR,
+    USER_SESSION,
     REGISTER_USER,
 } from './constants';  
 /**

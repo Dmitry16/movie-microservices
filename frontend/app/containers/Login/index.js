@@ -3,41 +3,47 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import { 
+  makeSelectLogin,
+  makeSelectCurrentUser
+} from './selectors';
 import {
-  makeSelectMovies,
   makeSelectLoading,
   makeSelectError
 } from 'containers/App/selectors';
-import { loadMovies } from '../App/actions';
-import { moviesLoaded } from 'containers/App/actions';
+import { 
+  authUser,
+  userAuthSuccess,
+  userAuthFailure,
+  userAuthError,
+  userSession
+ } from './actions';
 
-import { changeMovieTitle } from './actions';
-import { makeSelectMovieTitle } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import Login from './Login';
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeMovieTitle: (inputEvt, defaultValue) => {
-    dispatch(changeMovieTitle(inputEvt ? inputEvt.target.value : defaultValue))
-  },
+  // onChangeMovieTitle: (inputEvt, defaultValue) => {
+  //   dispatch(changeMovieTitle(inputEvt ? inputEvt.target.value : defaultValue))
+  // },
   onSubmitForm: (e) => {
     if (e !== undefined && e.preventDefault) e.preventDefault();
-    dispatch(loadMovies());
+    dispatch(authUser());
   },
   // checks if we have the data in the session storege. if we have it is loaded from the
   // session storage if we don't it is loaded from the external api 
-  loadData: (movieTitle) => {
-    const moviesInStorage = JSON.parse(sessionStorage.getItem(movieTitle));
-    !moviesInStorage 
-      ? dispatch(loadMovies(movieTitle))
-      : dispatch(moviesLoaded(moviesInStorage.Search, movieTitle));
-  }
+  // loadData: (movieTitle) => {
+  //   const moviesInStorage = JSON.parse(sessionStorage.getItem(movieTitle));
+  //   !moviesInStorage 
+  //     ? dispatch(loadMovies(movieTitle))
+  //     : dispatch(moviesLoaded(moviesInStorage.Search, movieTitle));
+  // }
 });
 
 const mapStateToProps = createStructuredSelector({
-  movies: makeSelectMovies(),
-  currentMovieTitle: makeSelectMovieTitle(),
+  currentUser: makeSelectCurrentUser(),
+  loggedIn: makeSelectLogin(),
   loading: makeSelectLoading(),
   error: makeSelectError()
 });
