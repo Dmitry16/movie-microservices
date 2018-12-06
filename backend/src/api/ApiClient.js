@@ -9,19 +9,14 @@ class ApiClient {
       return this.request({ client, query, pageNum });
     }
 
-    request({ client, query, pageNum }) {
+    async request({ client, query, pageNum }) {
       const conParams = {
         responseType: 'json',
         baseURL: this.baseURL,
       };
-      const input = `?apikey=${this.apiKey}&s=${query}&page=${pageNum}`;
+      const input = `?apikey=${this.apiKey}&s=${query}&page=${pageNum}`; 
       
-      return client
-        .get(input, conParams)
-        .then(response => {
-          return Promise.resolve(response.data)
-        })
-        .catch(console.error)
+      return (await client.get(input, conParams)).data;
     }
   };
   
