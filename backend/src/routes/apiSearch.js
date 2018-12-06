@@ -30,20 +30,20 @@ router.get('/', async function(req, res, next) {
   }
 });
 
-async function fetchMovies(searchKeyword) {
+function fetchMovies(searchKeyword) {
   let page = 0,
   call1Data = [],
   call2Data = [];
 
   try {
-    call1Data = await httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
-    call2Data = await httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
+    call1Data = httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
+    call2Data = httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
   }
   catch(err) { 
     console.log(err.errno)
     return err;
   }
-  return [call1Data, call2Data];
+  return Promise.all([call1Data, call2Data]);
 }
 
 // check fetched data, set it to the cache and send it to the client
