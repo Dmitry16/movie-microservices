@@ -26,13 +26,8 @@ const mapDispatchToProps = (dispatch) => ({
     if (e !== undefined && e.preventDefault) e.preventDefault();
     dispatch(loadMovies());
   },
-  // checks if we have the data in the session storege. if we have it is loaded from the
-  // session storage if we don't it is loaded from the external api 
   loadData: (movieTitle) => {
-    const moviesInStorage = JSON.parse(sessionStorage.getItem(movieTitle));
-    !moviesInStorage 
-      ? dispatch(loadMovies(movieTitle))
-      : dispatch(moviesLoaded(moviesInStorage.Search, movieTitle));
+      dispatch(loadMovies(movieTitle));
   }
 });
 

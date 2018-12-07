@@ -21,7 +21,7 @@ export function* getMovies() {
     // Call the request helper (see 'utils/request')
     const movies = yield call(request, requestURL);
     yield put(moviesLoaded(movies.Search, movieTitle));
-    yield put(setSessionStorage(movieTitle, movies))
+    // yield put(setSessionStorage(movieTitle, movies))
   } catch (err) {
     yield put(movieLoadingError(err));
   }

@@ -25,6 +25,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// setting up the max age for cached files
+app.use((req, res, next) => {
+  res.header('Cache-Control', 'max-age=30');
+  next();
+});
+
 app.use('/api/search', apiSearchRouter);
 
 // catch 404 and forward to error handler
