@@ -8,43 +8,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import MovieList from 'components/MovieList';
+import debounce from 'lodash/debounce';
 
 import './style.scss';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super();
-    this.timeoutId;
-    this.debounce = false;
-    this.keyPressCounter = 0;
+    this.debouncedLoadData;
+    this.defaultMovieTitle = 'rock';
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   // when component is mounted load movies with the default title
   componentDidMount() {
-    const defaultMovieTitle = 'rock';
-    this.props.onChangeMovieTitle(null, defaultMovieTitle);
-    this.props.loadData(defaultMovieTitle);
+    this.props.onChangeMovieTitle(null, this.defaultMovieTitle);
+    this.props.loadData(this.defaultMovieTitle);
+    this.debouncedLoadData = debounce(this.props.loadData, 300);
   }
-  // wait for user presses any key 3 times then debouncing it for 300 msec 
-  // fetch data for the printed keyword or load it from the session storage if there is such
   handleInputChange(e) {
-    this.keyPressCounter++;
     this.props.onChangeMovieTitle(e);
-    if (!this.debounce && this.keyPressCounter >= 3) {
-      this.debounce = true;
-      this.timeoutId = setTimeout(() => {
-        this.props.loadData(this.props.currentMovieTitle);
-        this.debounce = false;
-      }, 300);
-    } 
-    else if (this.timeoutId && this.keyPressCounter >= 3) {
-      clearTimeout(this.timeoutId);
-      this.timeoutId = setTimeout(() => {
-        this.props.loadData(this.props.currentMovieTitle);
-        this.debounce = false;
-      }, 300);
-      this.debounce = true;
-    }
+    this.debouncedLoadData(this.props.currentMovieTitle);
   }
 
   render() {
