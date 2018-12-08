@@ -20,6 +20,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   // when component is mounted load movies with the default title
+  // and set up debouncing for the data load
   componentDidMount() {
     this.props.onChangeMovieTitle(null, this.defaultMovieTitle);
     this.props.loadData(this.defaultMovieTitle);
@@ -27,6 +28,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
   }
   handleInputChange(e) {
     this.props.onChangeMovieTitle(e);
+    // debouncing the data load
     this.debouncedLoadData(this.props.currentMovieTitle);
   }
 

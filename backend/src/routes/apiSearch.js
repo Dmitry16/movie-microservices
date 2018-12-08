@@ -34,7 +34,7 @@ function fetchMovies(searchKeyword) {
   let page = 0,
   call1Data = [],
   call2Data = [];
-
+// parallel data fetching with Promise.all() returning data after the 2 calls finish
   try {
     call1Data = httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
     call2Data = httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
