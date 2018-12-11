@@ -6,7 +6,7 @@ services:
     image: backend
     environment:
       - NODE_ENV=development
-      - OMDb_PERSONAL_ACCESS_TOKEN=ad80c474
+      - OMDb_PERSONAL_ACCESS_TOKEN=your_omdb_api_key
     volumes:
       - ./backend/src:/app/src
     ports:
