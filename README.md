@@ -6,15 +6,13 @@ When typing a keyword into the input field the application fetches 20 movies wit
 
 # Frontend.
 
-The front-end app is written with React v16.4 which has a lot of great features such as: fiber under the hood (async rendering of the DOM), PureComponent, better ref and context apis, better error handling with ErrorBoundary, Fragments, Portals etc. It uses react-router v4.3 which has the component api design. Also other popular libraries from the react ecosystem which permit better development and testing according to the best practices such as immutable.js, redux-saga, reselect, lodash, etc. Besides of that I also like the feature-based project structure and TDD approach as well.
+The front-end is written with React v16.4 which has a lot of great features such as: the fiber under the hood (async rendering of the DOM), PureComponent, better ref and context apis, better error handling with ErrorBoundary, Fragments, Portals etc. It uses react-router v4.3 which has the component api design. Also other popular libraries from the react ecosystem which permit better development and testing according to the best practices such as immutable.js, redux-saga, reselect, lodash, etc. Besides of that I also like the feature-based project structure and TDD approach as well.
 
 The project has feature-based structure, redux for the state management of the app and react-router for routing. Components are devided separating concerns into 2 categories. The containers are concerned with providing the data flow and making things to work, and the components concerned with presentation. External Api calls are performed from redux-saga which design permits better testing and managing of side effects. 
 Babel is used as a transpiler in order to use all features of ES6. Webpack is used as a modules, plugins and loaders bundler. Npm as package manager and task runner.
 The feature-based approach and redux abstracted data store permits better reusability of the components due to loose coupling design. 
 
 # Backend.
-
-I used express-generator boilerplate because it has minimal project structure (role-based) with basic server setup, error handling, routing etc. 
 
 When server recieves a get request to the '/api/search' endpoint. The app performs next operations: 
 1. The request object is parsed to get the search keyword;
