@@ -39,8 +39,8 @@ function fetchMovies(searchKeyword) {
     call1Data = httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
     call2Data = httpClient.fetchOmdbApi.getMovies(axios, searchKeyword, ++page);
   }
-  catch(err) { 
-    console.log(err.errno)
+  catch(err) {
+    console.log(err.errno);
     return err;
   }
   return Promise.all([call1Data, call2Data]);
