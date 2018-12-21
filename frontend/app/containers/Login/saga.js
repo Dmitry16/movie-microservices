@@ -14,12 +14,24 @@ import request from 'utils/request';
 export function* getAuth() {
   // Select user from store
   const user = yield select(makeSelectCurrentUser());
-  console.log('getAuth', user)
-  const requestURL = `http://localhost:3003/api/search?keyword=${user}`;
+  console.log('getAuth', user.name,',',user.surname)
+  const requestURL = `http://localhost:3001/login`;
+  const data = {
+    "name": user.name,
+    "pw": user.surname
+  };
+  const options = {
+    method: "POST",
+    headers: {
+      // "Content-Type": "application/json; charset=utf-8",
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: JSON.stringify(data)
+  }
 
   try {
     // Call the request helper (see 'utils/request')
-    const userAuth = yield call(request, requestURL);
+    const userAuth = yield call(request, requestURL, options);
     yield put(userAuthSuccess(userAuth, true));
     yield put(userSession(userAuth))
   } catch (err) {

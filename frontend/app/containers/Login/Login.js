@@ -10,6 +10,7 @@ class Login extends React.PureComponent {
     }
     handleSubmit(e) {
         e.preventDefault();
+        console.log('this.props.currentUser::', this.props.currentUser);
         this.props.onSubmitForm(this.props.currentUser);
     }
     render() {

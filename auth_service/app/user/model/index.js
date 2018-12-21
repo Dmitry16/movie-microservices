@@ -1,18 +1,18 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
-mongoose.connect('mongodb://localhost/videostrimer', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/users', { useNewUrlParser: true })
 
 const db = mongoose.connection
 
 const UserSchema = mongoose.Schema({
-    username: {
+    name: {
         type: String,
-        index: true,
-        unique: true,
+        // index: true,
+        // unique: true,
         required: true
     },
-    password: {
+    pw: {
         type: String,
         required: true
     }
@@ -32,6 +32,6 @@ module.exports.createUser = function(newUser, cb){
 }
 module.exports.getUser = function(username, cb) {
     console.log('zzzzzzz')
-    const query = {username: username}
+    const query = {"name": username}
     User.findOne(query, cb)
 }

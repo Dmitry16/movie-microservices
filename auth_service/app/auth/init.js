@@ -10,8 +10,13 @@ const getUser = require('../user/model')
 // }
 
 passport.use(new LocalStrategy(
+    {
+        usernameField: 'name',
+        passwordField: 'surname'
+    },
     (username, password, done) => {
-        getUser({"username": username}, (err, user) => {
+        console.log('djhfgjfhg')
+        getUser({"name": username}, (err, user) => {
 
             console.log('getUser:::', user)
 
@@ -30,8 +35,8 @@ passport.use(new LocalStrategy(
             //     if (!isValid) {
             //         return done(null, false)
             //     }
-            if (user.password === password)
-                return done(null, user)
+            if (user.pw === password)
+                return done(null, user) 
             // })
         })
     }

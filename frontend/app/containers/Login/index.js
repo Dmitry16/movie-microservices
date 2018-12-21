@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
   // },
   onSubmitForm: (user) => {
     // if (e !== undefined && e.preventDefault) e.preventDefault();
+    console.log('onSubmitForm::', user);
     dispatch(authUser(user));
   },
   // checks if we have the data in the session storege. if we have it is loaded from the
