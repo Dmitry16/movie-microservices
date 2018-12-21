@@ -3,41 +3,44 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-// import {
-//   makeSelectMovies,
-//   makeSelectLoading,
-//   makeSelectError
-// } from 'containers/App/selectors';
-import { loadMovies } from '../App/actions';
-import { moviesLoaded } from 'containers/App/actions';
+import { makeSelectCurrentUser } from './selectors';
+import {
+  makeSelectLoading,
+  makeSelectError
+} from 'containers/App/selectors';
+import { 
+  authUser,
+  userAuthSuccess,
+  userAuthFailure,
+  userAuthError,
+  userSession
+ } from './actions';
 
-import { changeMovieTitle } from './actions';
-// import { makeSelectMovieTitle } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import Login from './Login';
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeMovieTitle: (inputEvt, defaultValue) => {
-    dispatch(changeMovieTitle(inputEvt ? inputEvt.target.value : defaultValue))
-  },
-  onSubmitForm: (e) => {
-    if (e !== undefined && e.preventDefault) e.preventDefault();
-    dispatch(loadMovies());
+  // onChangeMovieTitle: (inputEvt, defaultValue) => {
+  //   dispatch(changeMovieTitle(inputEvt ? inputEvt.target.value : defaultValue))
+  // },
+  onSubmitForm: (user) => {
+    // if (e !== undefined && e.preventDefault) e.preventDefault();
+    console.log('onSubmitForm::', user);
+    dispatch(authUser(user));
   },
   // checks if we have the data in the session storege. if we have it is loaded from the
   // session storage if we don't it is loaded from the external api 
-  loadData: (movieTitle) => {
-    const moviesInStorage = JSON.parse(sessionStorage.getItem(movieTitle));
-    !moviesInStorage 
-      ? dispatch(loadMovies(movieTitle))
-      : dispatch(moviesLoaded(moviesInStorage.Search, movieTitle));
-  }
+  // loadData: (movieTitle) => {
+  //   const moviesInStorage = JSON.parse(sessionStorage.getItem(movieTitle));
+  //   !moviesInStorage 
+  //     ? dispatch(loadMovies(movieTitle))
+  //     : dispatch(moviesLoaded(moviesInStorage.Search, movieTitle));
+  // }
 });
 
 const mapStateToProps = createStructuredSelector({
-  movies: makeSelectMovies(),
-  currentMovieTitle: makeSelectMovieTitle(),
+  currentUser: makeSelectCurrentUser(),
   loading: makeSelectLoading(),
   error: makeSelectError()
 });

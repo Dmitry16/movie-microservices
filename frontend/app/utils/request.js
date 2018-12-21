@@ -40,6 +40,7 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export default function request(url, options) {
+  console.log('request:::', options)
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON);

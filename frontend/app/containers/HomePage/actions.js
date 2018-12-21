@@ -17,7 +17,6 @@
 
 import { 
   CHANGE_MOVIE_TITLE,
-  CHECK_SESSION_STORAGE,
   SET_SESSION_STORAGE
 } from './constants';
 
