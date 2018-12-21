@@ -64,18 +64,7 @@ Login.propTypes = {
       PropTypes.object,
       PropTypes.bool,
     ]),
-<<<<<<< HEAD
-    users: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.bool,
-    ]),
-    onSubmitForm: PropTypes.func,
-    currentMovieTitle: PropTypes.string,
-    onChangeMovieTitle: PropTypes.func,
-};
-=======
     currentUser: PropTypes.object,
     onSubmitForm: PropTypes.func
 };
   
->>>>>>> new
