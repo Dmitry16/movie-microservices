@@ -3,16 +3,22 @@ backend/node_modules
 backend/coverage
 backend/build
 backend/stats.json
-
-# Cruft
 backend/.DS_Store
 backend/npm-debug.log
 backend/.idea
-
-# Logs
 backend/yarn-error.log
 
-# Don't check auto-generated stuff into git
+# auth
+auth/node_modules
+auth/coverage
+auth/build
+auth/stats.json
+auth/.DS_Store
+auth/npm-debug.log
+auth/.idea
+auth/yarn-error.log
+
+# frontend
 frontend/node_modules
 frontend/coverage
 frontend/build
