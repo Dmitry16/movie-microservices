@@ -8,6 +8,8 @@ RUN npm install && npm install -g nodemon
 
 COPY src /app/src
 
+COPY .env ./
+
 CMD nodemon ./src/server.js
 
 EXPOSE 3001
