@@ -46,31 +46,31 @@ export const registerUser = userInfo => {
     };
 }
 
-export function userAuthSuccess({user}) {
+export const userAuthSuccess = userInfo => {    
     return {
         type: AUTH_SUCCESS,
-        user
+        userInfo
     };
 }
 
-export function userAuthFailure({user}) {
+export const userAuthFailure = userInfo => {
     return {
         type: AUTH_FAILURE,
-        user
+        userInfo
     };
 }
 
-export function userAuthError({user}) {
+export const userAuthError = userInfo => {
     return {
         type: AUTH_ERROR,
-        user
+        userInfo
     };
 }
 
-export function userSession({user}) {
+export const userStartSession = userInfo => {
     return {
         type: USER_SESSION,
-        user
+        userInfo
     };
 }
 

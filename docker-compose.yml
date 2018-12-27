@@ -1,9 +1,19 @@
 version: '2.4'
 services:
+
+  db:
+    image: mongo
+    container_name: mongo
+    volumes:
+      - ./db/data:/data/db
+    ports:
+      - "27017:27017"
+
   backend:
     build:
       context: ./backend
     image: backend
+    container_name: backend
     environment:
       - NODE_ENV=development
       - OMDb_PERSONAL_ACCESS_TOKEN=ad80c474
@@ -11,22 +21,30 @@ services:
       - ./backend/src:/app/src
     ports:
       - "3003:3003"
+    links:
+      - db
+    depends_on: [ db ]
 
   auth:
     build:
       context: ./auth
     image: auth
+    container_name: auth
     environment:
       - NODE_ENV=development
     volumes:
       - ./auth/src:/app/src
     ports:
       - "3001:3001"
+    links:
+      - db
+    depends_on: [ db ]
 
   frontend:
     build:
       context: ./frontend
     image: frontend
+    container_name: frontend
     environment:
       - NODE_ENV=development
     volumes:

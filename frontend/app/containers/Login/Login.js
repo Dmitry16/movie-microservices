@@ -5,14 +5,15 @@ import './style.scss';
 
 
 class Login extends React.PureComponent {
-    // handleInputChange() {
+    state = {
+        email: this.props.currentUser.email,
+        password: this.props.currentUser.password
+    };
 
-    // }
-    // handleSubmit(e) {
-    //     e.preventDefault();
-    //     console.log('this.props.currentUser::', this.props.currentUser);
-    //     this.props.onSubmitForm(this.props.currentUser);
-    // }
+    handleChange = e => {
+        this.setState({[e.target.name]: e.target.value})
+    }
+
     handleFormSubmit = async e => {
         e.preventDefault();
         const payload = {
@@ -20,16 +21,18 @@ class Login extends React.PureComponent {
           password: this.password.value
         };
         this.props.onLogin(payload, this.clearForm);
-      };
+    };
     
-      clearForm = () => {
+    clearForm = () => {
         this.email.value = "";
         this.password.value = "";
-      };
+    };
 
     render() {
 
-        const { currentUser: { name, surname }} = this.props;
+        // const { currentUser: { email, password }} = this.props;
+
+        console.log('this.props', this.props)
 
         return (
             <article>
@@ -49,9 +52,9 @@ class Login extends React.PureComponent {
                         <label>Email Address</label>
                         <input
                             type="email"
-                            ref={node => {
-                            this.email = node;
-                            }}
+                            name="email"
+                            value={this.state.email}
+                            onChange={this.handleChange}
                             required
                             maxLength="50"
                             autoFocus
@@ -66,9 +69,9 @@ class Login extends React.PureComponent {
                         <label>Password</label>
                         <input
                             type="password"
-                            ref={node => {
-                            this.password = node;
-                            }}
+                            name="password"
+                            value={this.state.password}
+                            onChange={this.handleChange}
                             required
                             maxLength="50"
                             style={{ margin: 10 }}

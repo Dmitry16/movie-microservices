@@ -8,7 +8,7 @@ RUN npm install && npm install -g nodemon
 
 COPY src /app/src
 
-COPY .env ./
+COPY .env /app
 
 CMD nodemon ./src/server.js
 

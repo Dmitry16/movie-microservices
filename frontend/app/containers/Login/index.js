@@ -3,7 +3,8 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { makeSelectCurrentUser } from './selectors';
+import { toJS } from 'immutable';
+import { makeSelectCurrentUser, makeSelectLoggedIn } from './selectors';
 import {
   makeSelectLoading,
   makeSelectError
@@ -46,8 +47,13 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+// const mapStateToProps = store => ({
+//   currentUser: store.toJS().login.currentUser,
+//   loggedIn: store.toJS().login.loggedIn
+// });
 const mapStateToProps = createStructuredSelector({
   currentUser: makeSelectCurrentUser(),
+  loggedIn: makeSelectLoggedIn(),
   loading: makeSelectLoading(),
   error: makeSelectError()
 });

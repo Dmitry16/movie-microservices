@@ -2,8 +2,8 @@
  * Gets the AUTH from the backend REST Api
  */
 import { all, fork, call, put, select, takeLatest } from 'redux-saga/effects';
-import { LOGIN_USER, REGISTER_USER } from './constants';
-import { userAuthSuccess, userAuthError, userSession } from './actions';
+import { LOGIN_USER, REGISTER_USER, AUTH_SUCCESS } from './constants';
+import { userAuthSuccess, userStartSession, userAuthError } from './actions';
 import { makeSelectCurrentUser } from './selectors';
 
 import api from '../../api';
@@ -23,10 +23,10 @@ export function* getLogin() {
     // Call the request helper (see 'utils/request')
     const { data } = yield call(api.login, userData);
 
-    console.log('userLogin::', data);
+    console.log('userLogin::', data.userInfo);
 
-    yield put(userAuthSuccess(userInfo, true));
-    yield put(userSession(userInfo))
+    yield put(userAuthSuccess(data.userInfo));
+    yield put(userStartSession(data.userInfo))
   } catch (err) {
     yield put(userAuthError(err));
   }
