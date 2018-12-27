@@ -9,7 +9,7 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const AUTH_USER = 'Login/AUTH_USER';
+export const LOGIN_USER = 'Login/LOGIN_USER';
 export const AUTH_SUCCESS = 'Login/AUTH_SUCCESS';
 export const AUTH_FAILURE = 'Login/AUTH_FAILURE';
 export const AUTH_ERROR = 'Login/AUTH_ERROR';

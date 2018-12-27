@@ -16,7 +16,7 @@
  */
 
 import { 
-    AUTH_USER,
+    LOGIN_USER,
     AUTH_SUCCESS,
     AUTH_FAILURE,
     AUTH_ERROR,
@@ -30,11 +30,19 @@ import {
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function authUser(user) {
-    console.log('authUser::', user);
+export const loginUser = userInfo => {
+    console.log('loginUser::', userInfo);
     return {
-        type: AUTH_USER,
-        user
+        type: LOGIN_USER,
+        userInfo
+    };
+}
+
+export const registerUser = userInfo => {
+    console.log('registerUser::', userInfo);
+    return {
+        type: REGISTER_USER,
+        userInfo
     };
 }
 

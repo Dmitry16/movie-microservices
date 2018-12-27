@@ -7,21 +7,23 @@
  */
 import { fromJS } from 'immutable';
 
-import { AUTH_USER } from './constants';
+import { LOGIN_USER, REGISTER_USER, AUTH_SUCCESS } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
     currentUser: {
-      name: 'John',
-      surname: 'Doe',
-      loggedIn: false,
+      email: 'john@john.com',
+      password: 'Doe',
     },
 });
 
 function loginReducer(state = initialState, action) {
+  console.log('loginReducer', action)
   switch (action.type) {
-    case AUTH_USER:
-      return state.set('authUser', action.user)
+    case LOGIN_USER:
+      return state.set('currentUser', action.userInfo)
+    case REGISTER_USER:
+      return state.set('currentUser', action.userInfo)
     default:
       return state;
   }

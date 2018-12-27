@@ -1,39 +1,69 @@
 /**
  * Gets the AUTH from the backend REST Api
  */
-import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { AUTH_USER } from './constants';
+import { all, fork, call, put, select, takeLatest } from 'redux-saga/effects';
+import { LOGIN_USER, REGISTER_USER } from './constants';
 import { userAuthSuccess, userAuthError, userSession } from './actions';
 import { makeSelectCurrentUser } from './selectors';
 
-import request from 'utils/request';
-
+import api from '../../api';
 /**
  * Backend data request/response handler
  */
-export function* getAuth() {
+export function* getLogin() {
   // Select user from store
   const user = yield select(makeSelectCurrentUser());
-  console.log('getAuth', user.name,',',user.surname)
-  const requestURL = `http://localhost:3001/login`;
-  const data = {
-    "name": user.name,
-    "pw": user.surname
+  console.log('getLogin saga:', user.email,',',user.password)
+  const userData = {
+    "email": user.email,
+    "password": user.password
   };
-  const options = {
-    method: "POST",
-    headers: {
-      // "Content-Type": "application/json; charset=utf-8",
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: JSON.stringify(data)
-  }
 
   try {
     // Call the request helper (see 'utils/request')
-    const userAuth = yield call(request, requestURL, options);
-    yield put(userAuthSuccess(userAuth, true));
-    yield put(userSession(userAuth))
+    const { data } = yield call(api.login, userData);
+
+    console.log('userLogin::', data);
+
+    yield put(userAuthSuccess(userInfo, true));
+    yield put(userSession(userInfo))
+  } catch (err) {
+    yield put(userAuthError(err));
+  }
+}
+
+export function* getRegister() {
+  // Select user from store
+  const user = yield select(makeSelectCurrentUser());
+  console.log('getRegister', user.name, user.email,',',user.password)
+  const data = {
+    "email": user.email,
+    "password": user.password
+  };
+//   try {
+//     let { data } = await api.register(userInfo);
+//     saveToken(data.token);
+//     dispatch(authUser(data.userInfo));
+//     redirect();
+//   } catch (e) {
+//     if (!e.response) {
+//       console.log(e);
+//       return;
+//     }
+//     let { data } = e.response;
+//     const formattedErrors = formatErrors(data);
+//     dispatch(registerFail(formattedErrors));
+//   }
+// };
+
+  try {
+    // Call the request helper (see 'utils/request')
+    const userRegister = yield call(api.register, data);
+
+    console.log('user register::', userRegister);
+
+    yield put(userAuthSuccess(userRegister, true));
+    yield put(userSession(userRegister))
   } catch (err) {
     yield put(userAuthError(err));
   }
@@ -42,8 +72,16 @@ export function* getAuth() {
 /**
  * Root saga manages watcher lifecycle
  */
+function* userLogin() {
+  yield takeLatest(LOGIN_USER, getLogin);
+}
+function* userRegister() {
+  yield takeLatest(REGISTER_USER, getRegister);
+}
+
 export default function* userAuthentication() {
-  // Watches for LOAD_MOVIES actions and calls getMovies when one comes in.
-  // By using `takeLatest` only the result of the latest API call is applied.
-  yield takeLatest(AUTH_USER, getAuth);
+  yield all([
+    fork(userLogin),
+    fork(userRegister)
+  ])
 }

@@ -5,14 +5,28 @@ import './style.scss';
 
 
 class Login extends React.PureComponent {
-    handleInputChange() {
+    // handleInputChange() {
 
-    }
-    handleSubmit(e) {
+    // }
+    // handleSubmit(e) {
+    //     e.preventDefault();
+    //     console.log('this.props.currentUser::', this.props.currentUser);
+    //     this.props.onSubmitForm(this.props.currentUser);
+    // }
+    handleFormSubmit = async e => {
         e.preventDefault();
-        console.log('this.props.currentUser::', this.props.currentUser);
-        this.props.onSubmitForm(this.props.currentUser);
-    }
+        const payload = {
+          email: this.email.value,
+          password: this.password.value
+        };
+        this.props.onLogin(payload, this.clearForm);
+      };
+    
+      clearForm = () => {
+        this.email.value = "";
+        this.password.value = "";
+      };
+
     render() {
 
         const { currentUser: { name, surname }} = this.props;
@@ -28,26 +42,48 @@ class Login extends React.PureComponent {
                     <h2>Movie Search Login Page</h2>
                 </section>
                 <section className="centered">
-                    <form onSubmit={this.handleSubmit.bind(this)}>
-                        <label htmlFor="loginForm">
-                        Type in a user name to login with:
-                            <br />
-                            <input className = "form-input"
-                                id="userName"
-                                type="text"
-                                placeholder="name"
-                                value={name}
-                                onChange={this.handleInputChange}
-                            /><br />
-                            <input className = "form-input"
-                                id="userSurname"
-                                type="text"
-                                placeholder="surname"
-                                value={surname}
-                                onChange={this.handleInputChange}
-                            /><br />
-                            <input type="submit" value="Submit" />
-                        </label>
+                    <form onSubmit={this.handleFormSubmit}>
+                        <h2 style={{ textAlign: "center" }}>Login</h2>
+                        <hr />
+
+                        <label>Email Address</label>
+                        <input
+                            type="email"
+                            ref={node => {
+                            this.email = node;
+                            }}
+                            required
+                            maxLength="50"
+                            autoFocus
+                            style={{ margin: 10 }}
+                        />
+                        <span style={{ color: "red" }}>*</span>
+                        <span style={{ color: "red", marginLeft: 8 }}>
+                            {/* {loginErrors.email} */}
+                        </span>
+                        <br />
+
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            ref={node => {
+                            this.password = node;
+                            }}
+                            required
+                            maxLength="50"
+                            style={{ margin: 10 }}
+                        />
+                        <span style={{ color: "red" }}>*</span>
+                        <span style={{ color: "red", marginLeft: 8 }}>
+                            {/* {loginErrors.password} */}
+                        </span>
+                        <br />
+
+                        <input
+                            type="submit"
+                            value="Submit!"
+                            style={{ display: "block", margin: "auto" }}
+                        />
                     </form>
                 </section>
                 </div>
@@ -65,6 +101,27 @@ Login.propTypes = {
       PropTypes.bool,
     ]),
     currentUser: PropTypes.object,
-    onSubmitForm: PropTypes.func
+    onLogin: PropTypes.func
 };
   
+{/* <form onSubmit={this.handleSubmit.bind(this)}>
+<label htmlFor="loginForm">
+Type in a user name to login with:
+    <br />
+    <input className = "form-input"
+        id="userName"
+        type="email"
+        placeholder="name"
+        value={name}
+        onChange={this.handleInputChange}
+    /><br />
+    <input className = "form-input"
+        id="userSurname"
+        type="text"
+        placeholder="surname"
+        value={surname}
+        onChange={this.handleInputChange}
+    /><br />
+    <input type="submit" value="Submit" />
+</label>
+</form> */}

@@ -9,7 +9,8 @@ import {
   makeSelectError
 } from 'containers/App/selectors';
 import { 
-  authUser,
+  loginUser,
+  registerUser,
   userAuthSuccess,
   userAuthFailure,
   userAuthError,
@@ -18,25 +19,31 @@ import {
 
 import reducer from './reducer';
 import saga from './saga';
-import Login from './Login';
+import Auth from './Auth';
 
 const mapDispatchToProps = (dispatch) => ({
-  // onChangeMovieTitle: (inputEvt, defaultValue) => {
-  //   dispatch(changeMovieTitle(inputEvt ? inputEvt.target.value : defaultValue))
-  // },
-  onSubmitForm: (user) => {
-    // if (e !== undefined && e.preventDefault) e.preventDefault();
-    console.log('onSubmitForm::', user);
-    dispatch(authUser(user));
+
+  onLogin: (payload, cb) => {
+    console.log('onLogin::', payload);
+    dispatch(
+      loginUser(payload, () => {
+        cb();
+        // const { from } = this.props.location.state || {
+        //   from: { pathname: "/profile" }
+        // };
+        // this.props.history.push(from.pathname);
+      })
+    );
   },
-  // checks if we have the data in the session storege. if we have it is loaded from the
-  // session storage if we don't it is loaded from the external api 
-  // loadData: (movieTitle) => {
-  //   const moviesInStorage = JSON.parse(sessionStorage.getItem(movieTitle));
-  //   !moviesInStorage 
-  //     ? dispatch(loadMovies(movieTitle))
-  //     : dispatch(moviesLoaded(moviesInStorage.Search, movieTitle));
-  // }
+  onRegister: (payload, cb) => {
+    console.log('onRegister::', payload);
+    dispatch(
+      registerUser(payload, () => {
+        cb();
+        // this.props.history.push("/profile");
+      })
+    );
+  }
 });
 
 const mapStateToProps = createStructuredSelector({
@@ -50,5 +57,5 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withReducer = injectReducer({ key: 'login', reducer });
 const withSaga = injectSaga({ key: 'login', saga });
 
-export default compose(withReducer, withSaga, withConnect)(Login);
+export default compose(withReducer, withSaga, withConnect)(Auth);
 export { mapDispatchToProps };

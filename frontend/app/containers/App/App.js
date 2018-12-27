@@ -10,7 +10,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
 
-import Login from 'containers/Login';
+import Auth from 'containers/Login';
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import ErrorBoundary from 'containers/ErrorBoundary';
@@ -30,7 +30,7 @@ const App = () => (
     <Header />
     <ErrorBoundary>
       <Switch>
-        <Route exact path="/" component={Login} />
+        <Route exact path="/" component={Auth} />
         <Route path="/home" component={HomePage} />
         <Route path="/about" component={FeaturePage} />
         <Route path="" component={NotFoundPage} />
