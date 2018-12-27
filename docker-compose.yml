@@ -12,6 +12,17 @@ services:
     ports:
       - "3003:3003"
 
+  auth:
+    build:
+      context: ./auth
+    image: auth
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./auth/src:/app/src
+    ports:
+      - "3001:3001"
+
   frontend:
     build:
       context: ./frontend
