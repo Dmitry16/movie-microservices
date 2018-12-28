@@ -19,7 +19,7 @@ import {
 const initialState = fromJS({
     currentUser: {
       email: 'guest@guest.com',
-      password: 'guest',
+      password: 'guesT123',
     },
     loggedIn: false
 });

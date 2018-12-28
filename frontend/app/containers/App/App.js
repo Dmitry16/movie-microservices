@@ -6,7 +6,7 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
-import React from 'react';
+import React, { PureComponent } from "react";
 import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
 
@@ -19,25 +19,30 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import './style.scss';
 
-const App = () => (
-  <div className="app-wrapper">
-    <Helmet
-      titleTemplate="%s - React.js Boilerplate"
-      defaultTitle="React.js Boilerplate"
-    >
-      <meta name="description" content="A React.js Boilerplate application" />
-    </Helmet>
-    <Header />
-    <ErrorBoundary>
-      <Switch>
-        <Route exact path="/" component={Auth} />
-        <Route path="/home" component={HomePage} />
-        <Route path="/about" component={FeaturePage} />
-        <Route path="" component={NotFoundPage} />
-      </Switch>
-    </ErrorBoundary>
-    <Footer />
-  </div>
-);
+class App extends PureComponent {
+
+  render () {
+    console.log('App props::', this.props)
+    return (
+      <div className="app-wrapper">
+        <Helmet
+          titleTemplate="%s - React.js Boilerplate"
+          defaultTitle="React.js Boilerplate"
+        >
+          <meta name="description" content="A React.js Boilerplate application" />
+        </Helmet>
+        <Header />
+        <ErrorBoundary>
+          <Switch>
+            <Auth path="/" component={HomePage} />
+            <Route path="/about" component={FeaturePage} />
+            <Route path="" component={NotFoundPage} />
+          </Switch>
+        </ErrorBoundary>
+        <Footer />
+      </div>
+    )
+  }
+};
 
 export default App;
